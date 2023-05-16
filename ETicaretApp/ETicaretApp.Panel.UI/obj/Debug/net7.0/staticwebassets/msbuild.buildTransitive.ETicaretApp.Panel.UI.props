@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\ETicaretApp.Panel.UI.props" />
+</Project>

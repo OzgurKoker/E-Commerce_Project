@@ -1,14 +1,71 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "ETicaretApp.BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "ETicaretApp.DAL": "1.0.0",
+          "ETicaretApp.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ETicaretApp.BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ETicaretApp.BLL.dll": {}
+        }
+      },
+      "ETicaretApp.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "ETicaretApp.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ETicaretApp.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ETicaretApp.DAL.dll": {}
+        }
+      },
+      "ETicaretApp.Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/ETicaretApp.Entities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ETicaretApp.Entities.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ETicaretApp.BLL/1.0.0": {
+      "type": "project",
+      "path": "../ETicaretApp.BLL/ETicaretApp.BLL.csproj",
+      "msbuildProject": "../ETicaretApp.BLL/ETicaretApp.BLL.csproj"
+    },
+    "ETicaretApp.DAL/1.0.0": {
+      "type": "project",
+      "path": "../ETicaretApp.DAL/ETicaretApp.DAL.csproj",
+      "msbuildProject": "../ETicaretApp.DAL/ETicaretApp.DAL.csproj"
+    },
+    "ETicaretApp.Entities/1.0.0": {
+      "type": "project",
+      "path": "../ETicaretApp.Entities/ETicaretApp.Entities.csproj",
+      "msbuildProject": "../ETicaretApp.Entities/ETicaretApp.Entities.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "ETicaretApp.BLL >= 1.0.0",
+      "ETicaretApp.Entities >= 1.0.0"
+    ]
   },
   "packageFolders": {
-    "C:\\Users\\ayseg\\.nuget\\packages\\": {}
+    "C:\\Users\\ozgur\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -16,11 +73,11 @@
       "projectUniqueName": "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.Panel.UI\\ETicaretApp.Panel.UI.csproj",
       "projectName": "ETicaretApp.Panel.UI",
       "projectPath": "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.Panel.UI\\ETicaretApp.Panel.UI.csproj",
-      "packagesPath": "C:\\Users\\ayseg\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\ozgur\\.nuget\\packages\\",
       "outputPath": "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.Panel.UI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ayseg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ozgur\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -33,7 +90,14 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.BLL\\ETicaretApp.BLL.csproj": {
+              "projectPath": "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.BLL\\ETicaretApp.BLL.csproj"
+            },
+            "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.Entities\\ETicaretApp.Entities.csproj": {
+              "projectPath": "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.Entities\\ETicaretApp.Entities.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -64,7 +128,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ETicaretApp.DAL\ETicaretApp.DAL.csproj" />
+    <ProjectReference Include="..\ETicaretApp.Entities\ETicaretApp.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

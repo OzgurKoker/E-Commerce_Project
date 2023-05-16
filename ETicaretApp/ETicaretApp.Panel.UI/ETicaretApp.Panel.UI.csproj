@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ETicaretApp.BLL\ETicaretApp.BLL.csproj" />
+    <ProjectReference Include="..\ETicaretApp.Entities\ETicaretApp.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
