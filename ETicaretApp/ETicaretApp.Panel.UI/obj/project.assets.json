@@ -8,7 +8,7 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ozgur\\.nuget\\packages\\": {}
+    "C:\\Users\\ayseg\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -16,11 +16,11 @@
       "projectUniqueName": "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.Panel.UI\\ETicaretApp.Panel.UI.csproj",
       "projectName": "ETicaretApp.Panel.UI",
       "projectPath": "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.Panel.UI\\ETicaretApp.Panel.UI.csproj",
-      "packagesPath": "C:\\Users\\ozgur\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\ayseg\\.nuget\\packages\\",
       "outputPath": "C:\\Github\\AcunMedya_E-Ticaret_Group4\\ETicaretApp\\ETicaretApp.Panel.UI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ozgur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ayseg\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
