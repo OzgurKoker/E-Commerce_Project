@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETicaretApp.Panel.UI", "ETicaretApp.Panel.UI\ETicaretApp.Panel.UI.csproj", "{9626A3D9-74FD-4EAB-B80E-76CE49DC0E3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ETicaretApp.Panel.UI", "ETicaretApp.Panel.UI\ETicaretApp.Panel.UI.csproj", "{9626A3D9-74FD-4EAB-B80E-76CE49DC0E3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETicaretApp.DAL", "ETicaretApp.DAL\ETicaretApp.DAL.csproj", "{C7816F08-48A2-45F7-85A1-C4152B10BF32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETicaretApp.Entities", "ETicaretApp.Entities\ETicaretApp.Entities.csproj", "{8BC3D2C5-3497-45DB-9FB4-29184877B6BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETicaretApp.BLL", "ETicaretApp.BLL\ETicaretApp.BLL.csproj", "{EFC67192-940F-4B99-9F24-755E8A51F239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETicaretApp.UI", "ETicaretApp.UI\ETicaretApp.UI.csproj", "{1C524B03-A5A2-41BE-B88B-A6D0AA7BF4EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{9626A3D9-74FD-4EAB-B80E-76CE49DC0E3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9626A3D9-74FD-4EAB-B80E-76CE49DC0E3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9626A3D9-74FD-4EAB-B80E-76CE49DC0E3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7816F08-48A2-45F7-85A1-C4152B10BF32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7816F08-48A2-45F7-85A1-C4152B10BF32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7816F08-48A2-45F7-85A1-C4152B10BF32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7816F08-48A2-45F7-85A1-C4152B10BF32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BC3D2C5-3497-45DB-9FB4-29184877B6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BC3D2C5-3497-45DB-9FB4-29184877B6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BC3D2C5-3497-45DB-9FB4-29184877B6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BC3D2C5-3497-45DB-9FB4-29184877B6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC67192-940F-4B99-9F24-755E8A51F239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC67192-940F-4B99-9F24-755E8A51F239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC67192-940F-4B99-9F24-755E8A51F239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC67192-940F-4B99-9F24-755E8A51F239}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C524B03-A5A2-41BE-B88B-A6D0AA7BF4EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C524B03-A5A2-41BE-B88B-A6D0AA7BF4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C524B03-A5A2-41BE-B88B-A6D0AA7BF4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C524B03-A5A2-41BE-B88B-A6D0AA7BF4EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
