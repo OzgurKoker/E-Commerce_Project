@@ -404,3 +404,13 @@ MigrationBackup/
 /ETicaretApp/ETicaretApp.UI/obj/ETicaretApp.UI.csproj.nuget.dgspec.json
 /ETicaretApp/ETicaretApp.UI/obj/Debug/net7.0/ETicaretApp.UI.GeneratedMSBuildEditorConfig.editorconfig
 /ETicaretApp/ETicaretApp.UI/obj/Debug/net7.0/ETicaretApp.UI.assets.cache
+/ETicaretApp/ETicaretApp.Panel.UI/obj/Debug/net7.0/ETicaretApp.Panel.UI.pdb
+/ETicaretApp/ETicaretApp.Panel.UI/obj/Debug/net7.0/ETicaretApp.Panel.UI.dll
+/ETicaretApp/ETicaretApp.Panel.UI/obj/Debug/net7.0/ETicaretApp.Panel.UI.csproj.FileListAbsolute.txt
+/ETicaretApp/ETicaretApp.Panel.UI/obj/Debug/net7.0/ETicaretApp.Panel.UI.csproj.CoreCompileInputs.cache
+/ETicaretApp/ETicaretApp.Panel.UI/obj/Debug/net7.0/ETicaretApp.Panel.UI.csproj.AssemblyReference.cache
+/ETicaretApp/ETicaretApp.Panel.UI/bin/Debug/net7.0/ETicaretApp.Panel.UI.pdb
+/ETicaretApp/ETicaretApp.Panel.UI/bin/Debug/net7.0/ETicaretApp.Panel.UI.dll
+/ETicaretApp/ETicaretApp.Panel.UI/bin/Debug/net7.0/ETicaretApp.Panel.UI.deps.json
+/ETicaretApp/ETicaretApp.DAL/obj/Debug/net7.0/ETicaretApp.DAL.csproj.AssemblyReference.cache
+/ETicaretApp/ETicaretApp.BLL/obj/Debug/net7.0/ETicaretApp.BLL.csproj.AssemblyReference.cache
