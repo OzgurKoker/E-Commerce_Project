@@ -414,3 +414,5 @@ MigrationBackup/
 /ETicaretApp/ETicaretApp.Panel.UI/bin/Debug/net7.0/ETicaretApp.Panel.UI.deps.json
 /ETicaretApp/ETicaretApp.DAL/obj/Debug/net7.0/ETicaretApp.DAL.csproj.AssemblyReference.cache
 /ETicaretApp/ETicaretApp.BLL/obj/Debug/net7.0/ETicaretApp.BLL.csproj.AssemblyReference.cache
+/ETicaretApp/.vs/ETicaretApp/v17/.futdcache.v2
+/ETicaretApp/.vs/ETicaretApp/DesignTimeBuild/.dtbcache.v2
