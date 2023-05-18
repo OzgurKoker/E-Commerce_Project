@@ -11,6 +11,7 @@ namespace ETicaretApp.DAL
     public class ETicaretAppContext:DbContext
     {
         public DbSet<Category> Categories { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
