@@ -1,4 +1,4 @@
-﻿using CrmUygulamasi.UI.Services;
+﻿using ETicaretApp.UI.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ETicaretApp.Panel.UI.Services

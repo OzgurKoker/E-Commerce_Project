@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CrmUygulamasi.UI.ViewComponents
+namespace ETicaretApp.UI.ViewComponents
 {
     public class ModalViewComponent: ViewComponent
     {

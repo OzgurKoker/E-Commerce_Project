@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 
-namespace CrmUygulamasi.UI.Services
+namespace ETicaretApp.UI.Services
 {
     public enum NotifyType
     {
