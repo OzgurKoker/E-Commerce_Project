@@ -1,4 +1,4 @@
-﻿using ETicaretApp.UI.Services;
+﻿using ETicaretApp.Panel.UI.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ETicaretApp.Panel.UI.Services

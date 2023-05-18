@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ETicaretApp.UI.ViewComponents
+namespace ETicaretApp.Panel.UI.ViewComponents
 {
     public class ModalViewComponent: ViewComponent
     {
