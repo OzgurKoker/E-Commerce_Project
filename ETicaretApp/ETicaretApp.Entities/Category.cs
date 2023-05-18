@@ -18,6 +18,6 @@ namespace ETicaretApp.Entities
         [MaxLength(50,ErrorMessage ="Kategori adı alanı 50 karakterden fazla olamaz.")]
         [Required(ErrorMessage = "Kategori adı alanı boş geçilemez")]
         public string Name { get; set; }
-        public int MyProperty { get; set; }
+
     }
 }
