@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ETicaretApp.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaretApp.Panel.UI.Controllers
 {
@@ -7,6 +8,10 @@ namespace ETicaretApp.Panel.UI.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        public IActionResult CreateUserPartial()
+        {
+            return PartialView("_CreateUserPartialView", new User());
         }
     }
 }
