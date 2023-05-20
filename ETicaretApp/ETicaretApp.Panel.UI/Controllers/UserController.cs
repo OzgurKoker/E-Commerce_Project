@@ -67,8 +67,6 @@ namespace ETicaretApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Edit(User user)
         {
-
-
             if (ModelState.IsValid)
             {
 
@@ -93,7 +91,6 @@ namespace ETicaretApp.Panel.UI.Controllers
 
                     notificationService.Notification(NotifyType.Error, ex.Message);
                 }
-
             }
             else
                 ModelStateControl.KontrolEt(notificationService, ModelState);
