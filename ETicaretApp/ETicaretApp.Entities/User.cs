@@ -25,5 +25,16 @@ namespace ETicaretApp.Entities
         [Required(ErrorMessage = "Şifre alanı boş geçilemez.")]
         [MaxLength(50, ErrorMessage = "Şifre alanı 50 karakterden fazla olamaz.")]
         public string Password { get; set; }
+
+
+        [DisplayName("Durumu")]
+        public bool State { get; set; }
+
+
+        [DisplayName("Yetki")]
+        public string Role { get; set; }
+
+
+
     }
 }

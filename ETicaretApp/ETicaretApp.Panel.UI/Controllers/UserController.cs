@@ -28,8 +28,21 @@ namespace ETicaretApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(User user)
         {
+
+
+
+
             if (ModelState.IsValid)
             {
+                var dbuser = userManager.ListAll().FirstOrDefault(x => x.Email == user.Email);
+
+                if (dbuser != null)
+                {
+                    notificationService.Notification(NotifyType.Error, "Email adresini baska bir kullanıcı kullanıyor");
+                    return RedirectToAction(nameof(Index));
+                }
+
+
                 try
                 {
                     userManager.Create(user);
@@ -54,8 +67,22 @@ namespace ETicaretApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Edit(User user)
         {
+
+
             if (ModelState.IsValid)
             {
+
+                //Yapılacak
+
+                //var dbuser = userManager.ListAll().FirstOrDefault(x => x.Email == user.Email && x.Id!=user.Id);
+
+                //if (dbuser != null)
+                //{
+                //    notificationService.Notification(NotifyType.Error, "Email adresini baska bir kullanıcı kullanıyor");
+                //    return RedirectToAction(nameof(Index));
+                //}
+
+
                 try
                 {
                     userManager.Update(user);
@@ -102,7 +129,16 @@ namespace ETicaretApp.Panel.UI.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public IActionResult UpdateUserState(int id)
+        {
+            var user = userManager.GetById(id);
+            user.State = !user.State;
+            userManager.Update(user);
+            notificationService.Notification(NotifyType.Success, $"{user.Email} Mail adresli kullanıcı güncellendi.");
 
+            return Ok("Kullanıcı durumu güncellendi..");
+        }
 
 
 

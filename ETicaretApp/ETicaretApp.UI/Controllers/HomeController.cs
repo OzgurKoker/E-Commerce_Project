@@ -16,6 +16,7 @@ namespace ETicaretApp.UI.Controllers
         public IActionResult Index()
         {
             return View();
+
         }
 
         public IActionResult Shop()

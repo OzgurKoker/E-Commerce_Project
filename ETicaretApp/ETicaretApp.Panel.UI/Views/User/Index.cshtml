@@ -27,61 +27,83 @@
     <section class="content">
 
         <!-- Default box -->
-       
 
-           
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
 
-                                <a class="btn btn-primary btn-sm" onclick="openCreateModal('User')">Yeni Kullanıcı Oluştur</a>
 
-                                <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
 
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                        <a class="btn btn-primary btn-sm" onclick="openCreateModal('User')">Yeni Kullanıcı Oluştur</a>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body table-responsive p-0">
-                                <table class="table table-hover text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>E-Mail</th>
-                                            <th>Şifre</th>
-                                            <th width="80px"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr>
-
-                                                <td>@item.Email</td>
-                                                <td>@item.Password</td>
-
-                                                <td>
-                                                    <a onclick="openDeleteModal('User', @item.Id)" class="btn btn-danger btn-sm" title="Kaydı Sil"><i class="fa fa-trash"></i></a>
-                                                    <a onclick="openEditModal('User', @item.Id)" class="btn btn-warning btn-sm" title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-              
-          
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>E-Mail</th>
+                                    <th>Durumu</th>
+                                    <th>Yetki</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th width="80px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>@item.Email</td>
+                                     
+                                        <td>
+                                            @if (item.State)
+                                            {
+                                                <span class="badge badge-success" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateUserState(@item.Id)">Aktif</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateUserState(@item.Id)">Pasif</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.Role == "Admin")
+                                            {
+                                                <span class="badge badge-success">@item.Role</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">@item.Role</span>
+                                            }
+                                        </td>
+                                        <td>@item.RegisterDate</td>
+                                        <td>
+                                            <a onclick="openDeleteModal('User', @item.Id)" class="btn btn-danger btn-sm" title="Kaydı Sil"><i class="fa fa-trash"></i></a>
+                                            <a onclick="openEditModal('User', @item.Id)" class="btn btn-warning btn-sm" title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+
             <!-- /.card-body -->
             <!-- /.card-footer-->
         </div>
@@ -96,3 +118,28 @@
 <vc:modal modal-id="modalUserEdit" header-text="Kullanıcı Güncelle" form-id="formUserEdit" button-text="Kaydet" button-class="primary" detail-div-id="divEditModalDetail"></vc:modal>
 
 <vc:modal modal-id="modalUserDelete" header-text="Kullanıcı Sil" form-id="formUserDelete" button-text="Sil" button-class="danger" detail-div-id="divDeleteModalDetail"></vc:modal>
+
+
+@section Scripts {
+    <!-- Bootstrap Switch -->
+    <script src="~/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
+
+
+    <script>
+        function updateUserState(userId) {
+            $.ajax({
+                type: 'POST',
+                url: '/User/UpdateUserState/' + userId,
+                //data: "email: 'asasd', password: 'asda'",
+                success: function (result) {
+                    toastr.success(result);
+                    location.reload(true);
+                },
+                error: function () {
+                    toastr.error("İşlem sırasında hata oluştu..");
+                },
+            });
+        }
+    </script>
+}
