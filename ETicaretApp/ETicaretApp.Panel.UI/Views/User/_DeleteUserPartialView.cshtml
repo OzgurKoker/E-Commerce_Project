@@ -1,0 +1,21 @@
+﻿@model User
+
+<form asp-action="Delete" id="formUserDelete">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+        </dl>
+    </div>
+</form>
