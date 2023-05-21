@@ -1,4 +1,5 @@
 using ETicaretApp.Panel.UI.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opts =>
+    {
+        opts.Cookie.Name = "app.auth";
+        opts.AccessDeniedPath = "/Home/Index";
+        opts.LoginPath = "/Auth/Login";
+        opts.LogoutPath = "/Auth/Logout";
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

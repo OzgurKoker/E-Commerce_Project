@@ -2,10 +2,12 @@
 using ETicaretApp.DAL.EntityFramework;
 using ETicaretApp.Entities;
 using ETicaretApp.Panel.UI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaretApp.Panel.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
 

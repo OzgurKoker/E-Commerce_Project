@@ -1,55 +1,66 @@
-﻿@{
+﻿@using System.Security.Claims;
+@{
     string path = Context.Request.Path;
 }
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-      
-       
+
+
         <li class="nav-item">
             <a asp-controller="Home" asp-action="Index" class="nav-link ">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Anasayfa
-                 
-                    
+
+
                 </p>
             </a>
         </li>
 
+        @* <li class="nav-item">
+        <a href="#" class="nav-link @(path.StartsWith("/Home") ? "active" : "")">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>
+        Anasayfa
+        <i class="fas fa-angle-left right"></i>
+
+        </p>
+        </a>
+        <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="#" class="nav-link @(path.StartsWith("/Home") ? "active" : "")">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                    Anasayfa
-                    <i class="fas fa-angle-left right"></i>
-
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a asp-action="Privacy" asp-controller="Home" class="nav-link @(path.StartsWith("/Home/Privacy") ? "active" : "")">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Top Navigation</p>
-                    </a>
-                </li>
-
-
-            </ul>
+        <a asp-action="Privacy" asp-controller="Home" class="nav-link @(path.StartsWith("/Home/Privacy") ? "active" : "")">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Top Navigation</p>
+        </a>
         </li>
 
+
+        </ul>
+        </li>*@
+        @if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+        {
+
+
+            <li class="nav-item">
+                <a asp-controller="User" asp-action="Index" class="nav-link @(path.StartsWith("/User") ? "active" : "")">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Kullanıcılar
+
+                    </p>
+                </a>
+
+            </li>
+        }
         <li class="nav-item">
-            <a asp-controller="User" asp-action="Index" class="nav-link @(path.StartsWith("/User") ? "active" : "")">
-                <i class="nav-icon fas fa-users"></i>
+            <a asp-controller="Auth" asp-action="Logout" class="nav-link">
+                <i class="nav-icon fas fa-lock"></i>
                 <p>
-                    Kullanıcılar
- 
+                    Güvenli Çıkış
                 </p>
             </a>
-  
         </li>
-        
-      
     </ul>
 </nav>
