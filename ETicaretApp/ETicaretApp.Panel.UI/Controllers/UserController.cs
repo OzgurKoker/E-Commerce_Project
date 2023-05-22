@@ -71,12 +71,12 @@ namespace ETicaretApp.Panel.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Asqueryable
-                //if (userManager.ListAll().Any(x => x.Email == user.Email && x.Id != user.Id))
-                //{
-                //    notificationService.Notification(NotifyType.Error, "Email adresini baska bir kullanıcı kullanıyor");
-                //    return RedirectToAction(nameof(Index));
-                //}
+          
+                if (userManager.Query().Any(x => x.Email == user.Email && x.Id != user.Id))
+                {
+                    notificationService.Notification(NotifyType.Error, "Email adresini baska bir kullanıcı kullanıyor");
+                    return RedirectToAction(nameof(Index));
+                }
 
                 try
                 {

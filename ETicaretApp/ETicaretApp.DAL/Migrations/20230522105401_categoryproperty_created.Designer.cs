@@ -4,6 +4,7 @@ using ETicaretApp.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ETicaretApp.DAL.Migrations
 {
     [DbContext(typeof(ETicaretAppContext))]
-    partial class ETicaretAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230522105401_categoryproperty_created")]
+    partial class categoryproperty_created
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryPropertyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -41,27 +44,6 @@ namespace ETicaretApp.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Property")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("CategoryProperties");
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.User", b =>
@@ -95,22 +77,6 @@ namespace ETicaretApp.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>
-                {
-                    b.HasOne("ETicaretApp.Entities.Category", "Category")
-                        .WithMany("CategoryProperties")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("ETicaretApp.Entities.Category", b =>
-                {
-                    b.Navigation("CategoryProperties");
                 });
 #pragma warning restore 612, 618
         }

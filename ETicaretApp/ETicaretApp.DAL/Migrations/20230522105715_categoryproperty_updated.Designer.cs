@@ -4,6 +4,7 @@ using ETicaretApp.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ETicaretApp.DAL.Migrations
 {
     [DbContext(typeof(ETicaretAppContext))]
-    partial class ETicaretAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230522105715_categoryproperty_updated")]
+    partial class categoryproperty_updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryPropertyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -39,6 +42,8 @@ namespace ETicaretApp.DAL.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryPropertyId");
 
                     b.ToTable("Categories");
                 });
@@ -51,15 +56,22 @@ namespace ETicaretApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("Property1")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Property")
+                    b.Property<string>("Property2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Property3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Property4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Property5")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("CategoryProperties");
                 });
@@ -97,20 +109,18 @@ namespace ETicaretApp.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>
-                {
-                    b.HasOne("ETicaretApp.Entities.Category", "Category")
-                        .WithMany("CategoryProperties")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("ETicaretApp.Entities.Category", b =>
                 {
-                    b.Navigation("CategoryProperties");
+                    b.HasOne("ETicaretApp.Entities.CategoryProperty", null)
+                        .WithMany("category")
+                        .HasForeignKey("CategoryPropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>
+                {
+                    b.Navigation("category");
                 });
 #pragma warning restore 612, 618
         }

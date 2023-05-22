@@ -37,6 +37,11 @@ namespace ETicaretApp.BLL
            return _userDal.ListAll();
         }
 
+        public IQueryable<User> Query()
+        {
+            return _userDal.Query();
+        }
+
         public void Update(User user)
         {
             _userDal.Update(user);

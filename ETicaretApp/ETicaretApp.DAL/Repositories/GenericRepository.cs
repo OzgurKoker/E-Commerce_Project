@@ -10,6 +10,7 @@ namespace ETicaretApp.DAL.Repositories
     public class GenericRepository<TEntity> : IGenericDal<TEntity> where TEntity : class
     {
         ETicaretAppContext context = new ETicaretAppContext();
+
         public void Create(TEntity entity)
         {
             context.Add(entity);
@@ -32,10 +33,16 @@ namespace ETicaretApp.DAL.Repositories
             return context.Set<TEntity>().ToList();
         }
 
+        public IQueryable<TEntity> Query()
+        {
+            return context.Set<TEntity>().AsQueryable();
+        }
+
         public void Update(TEntity entity)
         {
             context.Update(entity);
             context.SaveChanges();
         }
+        
     }
 }

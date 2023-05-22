@@ -19,5 +19,9 @@ namespace ETicaretApp.Entities
         [Required(ErrorMessage = "Kategori adı alanı boş geçilemez")]
         public string Name { get; set; }
 
+        public int? CategoryId { get; set; }
+
+
+        public virtual ICollection<CategoryProperty> CategoryProperties { get; set; }
     }
 }

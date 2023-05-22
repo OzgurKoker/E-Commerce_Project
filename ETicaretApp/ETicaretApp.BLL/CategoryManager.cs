@@ -37,6 +37,11 @@ namespace ETicaretApp.BLL
            return _categoryDal.ListAll();
         }
 
+        public IQueryable<Category> Query()
+        {
+            return _categoryDal.Query();
+        }
+
         public void Update(Category category)
         {
             _categoryDal.Update(category);

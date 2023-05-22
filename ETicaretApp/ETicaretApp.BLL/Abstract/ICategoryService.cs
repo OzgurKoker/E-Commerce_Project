@@ -14,6 +14,6 @@ namespace ETicaretApp.BLL.Abstract
         void Delete(Category category);
         Category GetById(int id);
         List<Category> ListAll();
-
+        IQueryable<Category> Query();
     }
 }

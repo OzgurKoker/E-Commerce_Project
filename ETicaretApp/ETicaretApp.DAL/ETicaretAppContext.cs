@@ -12,13 +12,15 @@ namespace ETicaretApp.DAL
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<CategoryProperty> CategoryProperties { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=AYSEGUL\\SQLEXPRESS;database=ETicaretApp;TrustServerCertificate=true;Trusted_Connection=true");
+                optionsBuilder.UseSqlServer("server=localhost\\SQLEXPRESS;database=ETicaretApp;TrustServerCertificate=true;Trusted_Connection=true");
             }
         }
     }

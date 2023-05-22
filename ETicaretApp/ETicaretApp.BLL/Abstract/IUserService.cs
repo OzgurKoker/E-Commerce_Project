@@ -14,6 +14,7 @@ namespace ETicaretApp.BLL.Abstract
         void Delete(User user);
         User GetById(int id);
         List<User> ListAll();
+        IQueryable<User> Query();
 
     }
 }
