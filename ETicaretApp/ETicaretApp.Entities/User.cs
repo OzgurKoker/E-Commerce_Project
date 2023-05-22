@@ -27,7 +27,7 @@ namespace ETicaretApp.Entities
         public string Password { get; set; }
 
 
-        [DisplayName("Durumu")]
+        [DisplayName("Durum")]
         public bool State { get; set; }
 
 

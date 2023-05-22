@@ -57,13 +57,6 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction("Login", "Auth");
         }
-        public IActionResult Register()
-        {
-            return View();
-        }
-        public IActionResult ForgotPassword()
-        {
-            return View();
-        }
+       
     }
 }

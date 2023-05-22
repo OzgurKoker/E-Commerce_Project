@@ -18,7 +18,7 @@ namespace ETicaretApp.DAL
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=OZGUR\\SQLEXPRESS;database=ETicaretApp;TrustServerCertificate=true;Trusted_Connection=true");
+                optionsBuilder.UseSqlServer("server=AYSEGUL\\SQLEXPRESS;database=ETicaretApp;TrustServerCertificate=true;Trusted_Connection=true");
             }
         }
     }

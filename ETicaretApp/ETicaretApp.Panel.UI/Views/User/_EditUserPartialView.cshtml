@@ -30,8 +30,13 @@
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="State" class="control-label"></label> <br />
-                <input asp-for="State" type="checkbox" data-bootstrap-switch>
+                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+
+                    <input asp-for="State" type="checkbox" class="custom-control-input" id="customSwitch3" data-bootstrap-switch>
+                    <br />
+                    <label asp-for="State" class="custom-control-label" for="customSwitch3"></label>
+
+                </div>
             </div>
         </form>
     </div>
