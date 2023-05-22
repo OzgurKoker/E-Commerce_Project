@@ -12,11 +12,14 @@ namespace ETicaretApp.Panel.UI.Controllers
     {
 
         private readonly INotificationService notificationService;
+
         public UserController(INotificationService notificationService)
         {
             this.notificationService = notificationService;
         }
+
         UserManager userManager = new UserManager(new EfUserRepository());
+
         public IActionResult Index()
         {
             List<User> userList = userManager.ListAll();
@@ -30,10 +33,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(User user)
         {
-
-
-
-
+   
             if (ModelState.IsValid)
             {
                 var dbuser = userManager.ListAll().FirstOrDefault(x => x.Email == user.Email);
@@ -71,17 +71,12 @@ namespace ETicaretApp.Panel.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                //Yapılacak
-
-                //var dbuser = userManager.ListAll().FirstOrDefault(x => x.Email == user.Email && x.Id!=user.Id);
-
-                //if (dbuser != null)
+                //Asqueryable
+                //if (userManager.ListAll().Any(x => x.Email == user.Email && x.Id != user.Id))
                 //{
                 //    notificationService.Notification(NotifyType.Error, "Email adresini baska bir kullanıcı kullanıyor");
                 //    return RedirectToAction(nameof(Index));
                 //}
-
 
                 try
                 {
