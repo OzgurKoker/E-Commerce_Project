@@ -1,12 +1,18 @@
-﻿@model Category
+﻿@model CategoryViewModel
 
 
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="Create" id="formUserCreate">
+        <form asp-action="Create" id="formCategoryCreate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
+            <div class="custom-control custom-switch custom-switch-off-secondary custom-switch-on-success">
+                <input asp-for="check" type="checkbox" class="custom-control-input" id="customSwitch3" data-bootstrap-switch>
+                <label class="custom-control-label" for="customSwitch3"> Ana Kategori Olarak Ekle</label>
+
+            </div>
+            <br />
+            <div id="hdnInput" class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select class="form-control select2" style="width: 100%;" asp-for="CategoryId" asp-items="ViewBag.Category">
                 </select>
@@ -16,11 +22,23 @@
 
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input type="email" asp-for="Name" class="form-control" />
+                <input type="text" asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-         
+
         </form>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#customSwitch3').change(function () {
+            if ($(this).is(':checked')) {
+                $('#hdnInput').hide();
+
+            } else {
+                $('#hdnInput').show();
+            }
+        });
+    });
+</script>
