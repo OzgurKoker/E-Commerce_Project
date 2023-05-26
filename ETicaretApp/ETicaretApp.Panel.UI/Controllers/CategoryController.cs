@@ -3,6 +3,7 @@ using ETicaretApp.DAL.EntityFramework;
 using ETicaretApp.Entities;
 using ETicaretApp.Panel.UI.Models;
 using ETicaretApp.Panel.UI.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -24,7 +25,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
         public IActionResult CreateCategoryPartial()
         {
-            ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x=>x.CategoryId==null), "Id", "Name");
+            ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId == null), "Id", "Name");
             return PartialView("_CreateCategoryPartialView");
         }
         [HttpPost]
@@ -39,10 +40,10 @@ namespace ETicaretApp.Panel.UI.Controllers
             {
                 try
                 {
-                    categoryManager.Create(new Category { Name = ctgView.Name,CategoryId=ctgView.CategoryId });
+                    categoryManager.Create(new Category { Name = ctgView.Name, CategoryId = ctgView.CategoryId });
                     notificationService.Notification(NotifyType.Success, $"{ctgView.Name} İsimli Kategori Başarılı Bir Şekilde Oluşturuldu");
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     notificationService.Notification(NotifyType.Error, ex.Message);
                 }
@@ -51,6 +52,35 @@ namespace ETicaretApp.Panel.UI.Controllers
                 ModelStateControl.KontrolEt(notificationService, ModelState);
 
 
+
+
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult EditCategoryPartial(int id)
+        {
+            Category category = categoryManager.GetById(id);
+            return PartialView("_EditCategoryPartialView", category);
+        }
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+
+
+                try
+                {
+                    categoryManager.Update(category);
+                    notificationService.Notification(NotifyType.Success, $"{category.Name} Mail adresli kullanıcı güncellendi.");
+                }
+                catch (Exception ex)
+                {
+
+                    notificationService.Notification(NotifyType.Error, ex.Message);
+                }
+            }
+            else
+                ModelStateControl.KontrolEt(notificationService, ModelState);
 
 
             return RedirectToAction(nameof(Index));

@@ -40,7 +40,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>
@@ -61,7 +61,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CategoryProperties");
+                    b.ToTable("CategoryProperties", (string)null);
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.User", b =>
@@ -94,7 +94,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>

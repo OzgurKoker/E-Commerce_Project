@@ -64,42 +64,45 @@
                                 {
                                     <tr data-widget="expandable-table" aria-expanded="false">
                                         <td>
-                                            <button type="button" class="btn btn-primary p-0">
+                                            <button type="button" class="btn btn-outline-dark p-0">
                                                 <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
                                             </button>
                                             @item.Name
                                         </td>
                                         <td width="200px" class="float-right">
-                                            <a @*onclick="openDeleteModal('User', @item.Id)"*@ class="btn btn-danger btn-sm " title="Kaydı Sil"><i class="fa fa-trash"></i></a>
-                                            <a @*onclick="openEditModal('User', @item.Id)" *@class="btn btn-warning btn-sm " title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
+                                            <a onclick="openDeleteModal('Category', @item.Id)" class="btn btn-danger btn-sm " title="Kaydı Sil"><i class="fa fa-trash"></i></a>
+                                            <a onclick="openEditModal('Category', @item.Id)" class="btn btn-warning btn-sm " title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
                                         </td>
 
                                     </tr>
-                                    @foreach (var item2 in Model.Where(x => x.CategoryId == item.Id))
-                                    {
-                                        <tr class="expandable-body">
-                                            <td>
-                                                <div class="p-0">
-                                                    <table class="table table-hover">
-                                                        <tbody>
+                                    <tr class="expandable-body">
+                                        <td>
+                                            <div class="p-0">
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                        @foreach (var item2 in Model.Where(x => x.CategoryId == item.Id))
+                                                        {
+
 
                                                             <tr data-widget="expandable-table" aria-expanded="false">
                                                                 <td>
                                                                     @item2.Name
                                                                 </td>
                                                                 <td class="float-right">
-                                                                    <a @*onclick="openDeleteModal('User', @item.Id)"*@ class="btn btn-danger btn-sm " title="Kaydı Sil"><i class="fa fa-trash"></i></a>
-                                                                    <a @*onclick="openEditModal('User', @item.Id)" *@class="btn btn-warning btn-sm " title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
+                                                                    @*<a onclick="openCreateModal('CategoryProperty')" class="btn btn-info btn-sm " title="Detay Ekle"><i class="fa fa-plus"></i></a>*@
+                                                                    <a onclick="openDeleteModal('Category', @item2.Id)" class="btn btn-danger btn-sm " title="Kaydı Sil"><i class="fa fa-trash"></i></a>
+                                                                    <a onclick="openEditModal('Category', @item2.Id)" class="btn btn-warning btn-sm " title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
                                                                 </td>
                                                             </tr>
 
 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
+
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 }
 
 
@@ -129,6 +132,7 @@
 
 <vc:modal modal-id="modalCategoryDelete" header-text="Kategori Sil" form-id="formCategoryDelete" button-text="Sil" button-class="danger" detail-div-id="divDeleteModalDetail"></vc:modal>
 
+@*<vc:modal modal-id="modalCategoryPropertyCreate" header-text="Kategori Detay Oluştur" form-id="formCategoryPropertyCreate" button-text="Kaydet" button-class="primary" detail-div-id="divCreateModalDetail"></vc:modal>*@
 
 
 

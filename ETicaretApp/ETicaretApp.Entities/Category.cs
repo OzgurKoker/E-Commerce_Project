@@ -22,6 +22,6 @@ namespace ETicaretApp.Entities
         public int? CategoryId { get; set; }
 
 
-        public virtual ICollection<CategoryProperty> CategoryProperties { get; set; }
+        public virtual ICollection<CategoryProperty>? CategoryProperties { get; set; }
     }
 }

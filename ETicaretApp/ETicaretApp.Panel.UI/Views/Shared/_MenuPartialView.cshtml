@@ -9,7 +9,7 @@
 
 
         <li class="nav-item">
-            <a asp-controller="Home" asp-action="Index" class="nav-link ">
+            <a asp-controller="Home" asp-action="Index" class="nav-link @(path=="/" ? "active" : "")">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Anasayfa
@@ -19,26 +19,31 @@
             </a>
         </li>
 
-        @* <li class="nav-item">
-        <a href="#" class="nav-link @(path.StartsWith("/Home") ? "active" : "")">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p>
-        Anasayfa
-        <i class="fas fa-angle-left right"></i>
-
-        </p>
-        </a>
-        <ul class="nav nav-treeview">
         <li class="nav-item">
-        <a asp-action="Privacy" asp-controller="Home" class="nav-link @(path.StartsWith("/Home/Privacy") ? "active" : "")">
-        <i class="far fa-circle nav-icon"></i>
-        <p>Top Navigation</p>
-        </a>
+            <a href="#" class="nav-link @(path.StartsWith("/Category") ? "active" : "")">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Kategori İşlemleri
+                    <i class="fas fa-angle-left right"></i>
+
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Category" class="nav-link @(path=="/Category" ? "active" : "")">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Kategoriler</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="CategoryProperty" class="nav-link @(path.StartsWith("/CategoryProperty") ? "active" : "")">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Kategori Detayları</p>
+                    </a>
+                </li>
+
+            </ul>
         </li>
-
-
-        </ul>
-        </li>*@
         @if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
         {
 
@@ -54,16 +59,16 @@
 
             </li>
         }
-        <li class="nav-item">
-            <a asp-controller="Category" asp-action="Index" class="nav-link @(path.StartsWith("/Category") ? "active" : "")">
-                <i class="nav-icon fas fa-users"></i>
-                <p>
-                    Kategoriler
+        @*  <li class="nav-item">
+        <a asp-controller="Category" asp-action="Index" class="nav-link @(path.StartsWith("/Category") ? "active" : "")">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+        Kategoriler
 
-                </p>
-            </a>
+        </p>
+        </a>
 
-        </li>
+        </li>*@
 
         <li class="nav-item">
             <a asp-controller="Auth" asp-action="Logout" class="nav-link">

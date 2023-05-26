@@ -1,0 +1,15 @@
+﻿@model CategoryProperty
+
+<form asp-action="Delete" id="formCategoryPropertyDelete">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Property)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Property)
+            </dd>
+        </dl>
+    </div>
+</form>

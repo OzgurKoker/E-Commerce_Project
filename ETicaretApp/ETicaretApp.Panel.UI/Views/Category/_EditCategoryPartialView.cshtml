@@ -1,0 +1,28 @@
+﻿@model Category
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit" id="formCategoryEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @*     <label asp-for="Id" class="control-label"></label>*@
+                <input asp-for="Id" class="form-control" hidden />
+                @* <span asp-validation-for="Id" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                @*     <label asp-for="Id" class="control-label"></label>*@
+                <input asp-for="CategoryId" class="form-control" hidden />
+                @* <span asp-validation-for="Id" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+         
+ 
+  
+        </form>
+    </div>
+</div>

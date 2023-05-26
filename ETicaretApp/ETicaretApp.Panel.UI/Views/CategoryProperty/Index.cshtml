@@ -1,0 +1,99 @@
+﻿@model IEnumerable<CategoryProperty>
+
+@{
+    ViewData["Title"] = "Kategori Detay Listesi";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Kategori Detay Listesi</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">Kategori Detay Listesi</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <a class="btn btn-primary btn-sm" onclick="openCreateModal('CategoryProperty')">Yeni Kategori Detay Oluştur</a>
+                        <select class="form-control select2" style="width: 100%;" asp-items="ViewBag.Category" id="filter">
+                        </select>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Adı</th>
+
+                                    <th width="80px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>@item.Property</td>
+
+                                        <td>
+                                            <a onclick="openDeleteModal('CategoryProperty', @item.Id)" class="btn btn-danger btn-sm" title="Kaydı Sil"><i class="fa fa-trash"></i></a>
+                                            <a onclick="openEditModal('CategoryProperty', @item.Id)" class="btn btn-warning btn-sm" title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+
+            <!-- /.card-body -->
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+
+<vc:modal modal-id="modalCategoryPropertyCreate" header-text="Kategori Detay Oluştur" form-id="formCategoryPropertyCreate" button-text="Kaydet" button-class="primary" detail-div-id="divCreateModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalCategoryPropertyEdit" header-text="Kategori Detay Güncelle" form-id="formCategoryPropertyEdit" button-text="Kaydet" button-class="primary" detail-div-id="divEditModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalCategoryPropertyDelete" header-text="Kategori Detay Sil" form-id="formCategoryPropertyDelete" button-text="Sil" button-class="danger" detail-div-id="divDeleteModalDetail"></vc:modal>
+
