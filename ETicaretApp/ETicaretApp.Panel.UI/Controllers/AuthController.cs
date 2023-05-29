@@ -27,6 +27,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             {
                 List<Claim> claims = new List<Claim>
                 {
+                    new Claim("Id",user.Id.ToString()),
                     new Claim(ClaimTypes.Email,user.Email),
                     new Claim(ClaimTypes.Role,user.Role)
                 };

@@ -13,6 +13,7 @@ namespace ETicaretApp.DAL
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<CategoryProperty> CategoryProperties { get; set; }
+        public DbSet<Brand> Brands { get; set; }
 
 
 

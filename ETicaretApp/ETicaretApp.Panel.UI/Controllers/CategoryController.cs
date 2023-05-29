@@ -3,12 +3,14 @@ using ETicaretApp.DAL.EntityFramework;
 using ETicaretApp.Entities;
 using ETicaretApp.Panel.UI.Models;
 using ETicaretApp.Panel.UI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ETicaretApp.Panel.UI.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());

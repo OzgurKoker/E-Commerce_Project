@@ -15,7 +15,8 @@ namespace ETicaretApp.Entities
     {
         [DisplayName("Özellik Adı")]
         [MaxLength(50, ErrorMessage = "Özellik adı alanı 50 karakterden fazla olamaz.")]
-        public string? Property { get; set; }
+        [Required(ErrorMessage ="Özellik boş geçilemez")]
+        public string Property { get; set; }
 
         public int CategoryId { get; set; }
         public virtual Category? Category { get; set; }

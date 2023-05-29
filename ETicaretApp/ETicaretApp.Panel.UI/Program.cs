@@ -1,5 +1,7 @@
+using ETicaretApp.DAL;
 using ETicaretApp.Panel.UI.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
