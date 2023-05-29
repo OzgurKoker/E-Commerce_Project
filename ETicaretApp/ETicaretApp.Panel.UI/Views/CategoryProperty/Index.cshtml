@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CategoryProperty>
 
 @{
-    ViewData["Title"] = "Kategori Detay Listesi";
+    ViewData["Title"] = "Kategori Özellik Listesi";
 }
 
 
@@ -11,12 +11,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Kategori Detay Listesi</h1>
+                    <h1>Kategori Özellik Listesi</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Anasayfa</a></li>
-                        <li class="breadcrumb-item active">Kategori Detay Listesi</li>
+                        <li class="breadcrumb-item active">Kategori Özellik Listesi</li>
                     </ol>
                 </div>
             </div>
@@ -34,10 +34,19 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+                        <a class="btn btn-primary btn-sm" onclick="openCreateModal('CategoryProperty')">Yeni Kategori Özelliği Oluştur</a>
+                        <form asp-action="Index">
+                            <select class="form-control select2" name="categoryId" onchange="submitForm()">
+                                <option value="0">Hepsini listele</option>
+                                @foreach (var item in (IEnumerable<SelectListItem>)ViewData["Category"])
+                                {
+                                    <option value="@item.Value">@item.Text</option>
 
-                        <a class="btn btn-primary btn-sm" onclick="openCreateModal('CategoryProperty')">Yeni Kategori Detay Oluştur</a>
-                        <select class="form-control select2" style="width: 100%;" asp-items="ViewBag.Category" id="filter">
-                        </select>
+                                }
+                            </select>
+                            <button type="submit" class="btn btn-primary">getir</button>
+                        </form>
+
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
                                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -91,9 +100,9 @@
     <!-- /.content -->
 </div>
 
-<vc:modal modal-id="modalCategoryPropertyCreate" header-text="Kategori Detay Oluştur" form-id="formCategoryPropertyCreate" button-text="Kaydet" button-class="primary" detail-div-id="divCreateModalDetail"></vc:modal>
+<vc:modal modal-id="modalCategoryPropertyCreate" header-text="Kategori Özelliği Oluştur" form-id="formCategoryPropertyCreate" button-text="Kaydet" button-class="primary" detail-div-id="divCreateModalDetail"></vc:modal>
 
-<vc:modal modal-id="modalCategoryPropertyEdit" header-text="Kategori Detay Güncelle" form-id="formCategoryPropertyEdit" button-text="Kaydet" button-class="primary" detail-div-id="divEditModalDetail"></vc:modal>
+<vc:modal modal-id="modalCategoryPropertyEdit" header-text="Kategori Özelliği Güncelle" form-id="formCategoryPropertyEdit" button-text="Kaydet" button-class="primary" detail-div-id="divEditModalDetail"></vc:modal>
 
-<vc:modal modal-id="modalCategoryPropertyDelete" header-text="Kategori Detay Sil" form-id="formCategoryPropertyDelete" button-text="Sil" button-class="danger" detail-div-id="divDeleteModalDetail"></vc:modal>
+<vc:modal modal-id="modalCategoryPropertyDelete" header-text="Kategori Özelliği Sil" form-id="formCategoryPropertyDelete" button-text="Sil" button-class="danger" detail-div-id="divDeleteModalDetail"></vc:modal>
 

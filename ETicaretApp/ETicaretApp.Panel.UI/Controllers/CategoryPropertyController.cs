@@ -18,11 +18,23 @@ namespace ETicaretApp.Panel.UI.Controllers
         {
             this.notificationService = notificationService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? categoryId)
         {
-            ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId != null), "Id", "Name");
+            List<CategoryProperty> categoryProperties;
 
-            List<CategoryProperty> categoryProperties = categoryPropertyManager.ListAll();
+            if (categoryId == 0 || categoryId == null)
+            {
+                categoryProperties = categoryPropertyManager.ListAll();
+            }
+            else
+            {
+                categoryProperties = categoryPropertyManager.ListAll().Where(x => x.CategoryId == categoryId).ToList();
+
+            }
+
+            ViewData["Category"] = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId != null), "Id", "Name");
+
+
             return View(categoryProperties);
         }
 
@@ -36,7 +48,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Create(CategoryProperty categoryProperty)
         {
-       
+
             if (ModelState.IsValid)
             {
                 try
@@ -86,8 +98,8 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
         public IActionResult DeleteCategoryPropertyPartial(int id)
         {
-            CategoryProperty ctgProperty= categoryPropertyManager.GetById(id);
-            return PartialView("_DeleteCategoryPropertyPartialView",ctgProperty);
+            CategoryProperty ctgProperty = categoryPropertyManager.GetById(id);
+            return PartialView("_DeleteCategoryPropertyPartialView", ctgProperty);
         }
         [HttpPost]
         public IActionResult Delete(CategoryProperty categoryProperty)
@@ -107,7 +119,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-   
-    
+
+
     }
 }
