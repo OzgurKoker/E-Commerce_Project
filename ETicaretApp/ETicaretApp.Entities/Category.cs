@@ -23,5 +23,7 @@ namespace ETicaretApp.Entities
 
 
         public virtual ICollection<CategoryProperty>? CategoryProperties { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

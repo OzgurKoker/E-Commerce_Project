@@ -75,5 +75,35 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult EditBrandPartial(int id)
+        {
+            Brand brand = brandManager.GetById(id);
+            return PartialView("_EditBrandPartialView", brand);
+
+        }
+        [HttpPost]
+        public IActionResult Edit(Brand brand)
+        {
+            if (ModelState.IsValid)
+            {
+
+
+                try
+                {
+                    brandManager.Update(brand);
+                    notificationService.Notification(NotifyType.Success, $"{brand.Name} isimli marka güncellendi.");
+                }
+                catch (Exception ex)
+                {
+
+                    notificationService.Notification(NotifyType.Error, ex.Message);
+                }
+            }
+            else
+                ModelStateControl.KontrolEt(notificationService, ModelState);
+
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

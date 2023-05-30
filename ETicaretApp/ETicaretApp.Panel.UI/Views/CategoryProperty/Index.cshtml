@@ -34,19 +34,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a class="btn btn-primary btn-sm" onclick="openCreateModal('CategoryProperty')">Yeni Kategori Özelliği Oluştur</a>
-                        <form asp-action="Index">
-                            <select class="form-control select2" name="categoryId" onchange="submitForm()">
-                                <option value="0">Hepsini listele</option>
-                                @foreach (var item in (IEnumerable<SelectListItem>)ViewData["Category"])
-                                {
-                                    <option value="@item.Value">@item.Text</option>
-
-                                }
-                            </select>
-                            <button type="submit" class="btn btn-primary">getir</button>
-                        </form>
-
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
                                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -58,6 +45,26 @@
                                 </div>
                             </div>
                         </div>
+                        
+                            <a class="btn btn-primary btn-sm" onclick="openCreateModal('CategoryProperty')">Yeni Kategori Özelliği Oluştur</a>
+                          
+                        
+                       <div style="width:200px;">
+                            <form asp-action="Index">
+                                <select class="form-control select2" name="categoryId" onchange="submitForm()">
+                                    <option value="0">Hepsini listele</option>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewData["Category"])
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+
+                                    }
+                                </select>
+                                <br />
+                                <button type="submit" class="btn btn-primary">getir</button>
+                            </form>
+                       </div>
+
+                        
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">

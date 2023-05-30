@@ -4,6 +4,7 @@ using ETicaretApp.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ETicaretApp.DAL.Migrations
 {
     [DbContext(typeof(ETicaretAppContext))]
-    partial class ETicaretAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230530105835_Product_ve_ProductImageCreated")]
+    partial class Product_ve_ProductImageCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +40,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.Category", b =>
@@ -58,7 +61,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>
@@ -81,7 +84,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CategoryProperties", (string)null);
+                    b.ToTable("CategoryProperties");
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.Product", b =>
@@ -103,9 +106,12 @@ namespace ETicaretApp.DAL.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<double?>("DiscountedPrice")
+                    b.Property<int?>("DiscountedPrice")
                         .HasMaxLength(10)
-                        .HasColumnType("float");
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDiscountedProduct")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsNewProduct")
                         .HasColumnType("bit");
@@ -118,10 +124,9 @@ namespace ETicaretApp.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<double?>("Price")
-                        .IsRequired()
+                    b.Property<int>("Price")
                         .HasMaxLength(10)
-                        .HasColumnType("float");
+                        .HasColumnType("int");
 
                     b.Property<int>("StockQuantity")
                         .HasMaxLength(6)
@@ -133,7 +138,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.ProductImage", b =>
@@ -161,35 +166,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages", (string)null);
-                });
-
-            modelBuilder.Entity("ETicaretApp.Entities.PropertyValue", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryPropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryPropertyId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("PropertyValues", (string)null);
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.User", b =>
@@ -222,7 +199,7 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>
@@ -266,25 +243,6 @@ namespace ETicaretApp.DAL.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ETicaretApp.Entities.PropertyValue", b =>
-                {
-                    b.HasOne("ETicaretApp.Entities.CategoryProperty", "CategoryProperty")
-                        .WithMany("PropertyValues")
-                        .HasForeignKey("CategoryPropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ETicaretApp.Entities.Product", "Product")
-                        .WithMany("PropertyValues")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CategoryProperty");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ETicaretApp.Entities.Brand", b =>
                 {
                     b.Navigation("Products");
@@ -297,16 +255,9 @@ namespace ETicaretApp.DAL.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ETicaretApp.Entities.CategoryProperty", b =>
-                {
-                    b.Navigation("PropertyValues");
-                });
-
             modelBuilder.Entity("ETicaretApp.Entities.Product", b =>
                 {
                     b.Navigation("ProductImages");
-
-                    b.Navigation("PropertyValues");
                 });
 #pragma warning restore 612, 618
         }

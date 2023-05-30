@@ -1,0 +1,18 @@
+﻿@model PropertyValue
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" id="formDetailCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input type="text" asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+
+
+        </form>
+    </div>
+</div>

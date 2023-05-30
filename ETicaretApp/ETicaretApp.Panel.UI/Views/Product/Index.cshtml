@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Ürün Özellik Listesi";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Ürün Listesi</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">Ürün Listesi</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="btn btn-primary btn-sm" onclick="openCreateModal('Product')">Yeni Ürün Oluştur</a>
+
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Kategori</th>
+                                    <th>Marka</th>
+                                    <th>Adı</th>
+                                    <th>Açıklaması</th>
+                                    <th>Fiyatı</th>
+                                    <th>İndirimli Fiyatı</th>
+                                    <th>Stok Miktari</th>
+                                    <th>Vitrin Ürünü Mü ?</th>
+                                    <th>Yeni Ürün Mü ?</th>
+                                    <th width="80px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>@item.CategoryId</td>
+                                        <td>@item.BrandId</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Description</td>
+                                        <td>@item.Price</td>
+                                        <td>@item.DiscountedPrice</td>
+                                        <td>@item.StockQuantity</td>
+                                        <td>@item.IsShowcaseProduct</td>
+                                        <td>@item.IsNewProduct</td>
+
+                                        <td>
+                                            <a onclick="openDetailModal('Product', @item.Id)" class="btn btn-secondary btn-sm" title="Detayları Ekle"><i class="fa fa-plus"></i></a>
+                                            <a onclick="openDeleteModal('Product', @item.Id)" class="btn btn-danger btn-sm" title="Kaydı Sil"><i class="fa fa-trash"></i></a>
+                                            <a onclick="openEditModal('Product', @item.Id)" class="btn btn-warning btn-sm" title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+
+            <!-- /.card-body -->
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+
+<vc:modal modal-id="modalProductCreate" header-text="Ürün Oluştur" form-id="formProductCreate" button-text="Kaydet" button-class="primary" detail-div-id="divCreateModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalProductEdit" header-text="Ürün Güncelle" form-id="formProductEdit" button-text="Kaydet" button-class="primary" detail-div-id="divEditModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalProductDelete" header-text="Ürün Sil" form-id="formProductDelete" button-text="Sil" button-class="danger" detail-div-id="divDeleteModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalProductDetail" header-text="Ürün Detay Ekle" form-id="formProductDetail" button-text="Kaydet" button-class="primary" detail-div-id="divDetailModalDetail"></vc:modal>
+

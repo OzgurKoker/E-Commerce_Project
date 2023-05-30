@@ -17,5 +17,7 @@ namespace ETicaretApp.Entities
         [Required(ErrorMessage ="Marka adı alanı boş geçilemez.")]
         [MaxLength(50, ErrorMessage = "Marka adı alanı 50 karakterden fazla olamaz.")]
         public string Name { get; set; }
+
+        public virtual ICollection<Product>? Products { get; set; }
     }
 }

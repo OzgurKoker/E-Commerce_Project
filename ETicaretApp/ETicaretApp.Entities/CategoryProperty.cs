@@ -18,7 +18,11 @@ namespace ETicaretApp.Entities
         [Required(ErrorMessage ="Özellik boş geçilemez")]
         public string Property { get; set; }
 
+
         public int CategoryId { get; set; }
         public virtual Category? Category { get; set; }
+
+
+        public virtual ICollection<PropertyValue> PropertyValues { get; set; }
     }
 }

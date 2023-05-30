@@ -12,3 +12,7 @@ function openDeleteModal(entityName, id) {
     $("#divDeleteModalDetail").load(entityName + "/Delete" + entityName + "Partial/" + id);
     $("#modal" + entityName + "Delete").modal("toggle");
 }
+function openDetailModal(entityName, id) {
+    $("#divDetailModalDetail").load(entityName + "/Detail" + entityName + "Partial/" + id);
+    $("#modal" + entityName + "Detail").modal("toggle");
+}
