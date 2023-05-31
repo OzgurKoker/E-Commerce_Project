@@ -15,7 +15,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         ProductManager productManager = new ProductManager(new EfProductRepository());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         BrandManager brandManager = new BrandManager(new EfBrandRepository());
-
+        CategoryPropertyManager categoryPropertyManager = new CategoryPropertyManager(new EfCategoryPropertyRepository());
         private readonly INotificationService notificationService;
 
         public ProductController(INotificationService notificationService)
@@ -71,8 +71,14 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
         public IActionResult DetailProductPartial(int id)
         {
-           
-            return PartialView("_DetailProductPartialView");
+           Product product= productManager.GetById(id);
+           List<CategoryProperty> properties = categoryPropertyManager.ListAll().Where(x=>x.CategoryId==product.CategoryId).ToList();
+            return PartialView("_DetailProductPartialView",properties);
+        }
+        [HttpPost]
+        public IActionResult Create(PropertyValue propertyValue)
+        {
+            return RedirectToAction(nameof(Index));
         }
     }
 

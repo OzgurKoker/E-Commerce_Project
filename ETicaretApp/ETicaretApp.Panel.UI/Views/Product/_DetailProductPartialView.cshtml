@@ -1,4 +1,4 @@
-﻿@model PropertyValue
+﻿@model IEnumerable<CategoryProperty>
 
 
 <div class="row">
@@ -6,13 +6,17 @@
         <form asp-action="Create" id="formDetailCreate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="Value" class="control-label"></label>
-                <input type="text" asp-for="Value" class="form-control" />
-                <span asp-validation-for="Value" class="text-danger"></span>
-            </div>
-
+            @foreach (var item in Model)
+            {
+                <div class="form-group">
+                    <label asp-for="@item.Property" class="control-label">@item.Property</label>
+                    <input id="PropertyValue" name="PropertyValue" type="text" asp-for="@item.Property" class="form-control" />
+                    <span asp-validation-for="@item.Property" class="text-danger"></span>
+                </div>
+            }
 
         </form>
     </div>
 </div>
+
+
