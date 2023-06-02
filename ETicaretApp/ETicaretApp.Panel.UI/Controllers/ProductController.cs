@@ -69,14 +69,16 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult DetailProductPartial(int id)
         {
            Product product= productManager.GetById(id);
            List<CategoryProperty> properties = categoryPropertyManager.ListAll().Where(x=>x.CategoryId==product.CategoryId).ToList();
             return PartialView("_DetailProductPartialView",properties);
         }
+
         [HttpPost]
-        public IActionResult Create(PropertyValue propertyValue)
+        public IActionResult CreateDetail(PropertyValue propertyValue)
         {
             return RedirectToAction(nameof(Index));
         }
