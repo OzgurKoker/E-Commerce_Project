@@ -1,0 +1,17 @@
+﻿@model Slider
+
+<form asp-action="Delete" id="formSliderDelete">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+            <dd class="col-sm-8">
+                <div class="user-block" style="width: 80px !important; height: 80px !important;">
+                    <img class="img-md" src="~/img/Slider/@Model.Image" alt="Slayt Image" style="width: 80px !important; height: 80px !important;">
+                </div>
+            </dd>
+        </dl>
+    </div>
+</form>

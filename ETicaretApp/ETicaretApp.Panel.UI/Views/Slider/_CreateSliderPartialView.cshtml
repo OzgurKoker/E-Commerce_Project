@@ -1,0 +1,78 @@
+﻿@model SliderViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" id="formSliderCreate" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Fotoğraf</label>
+                <input class="form-control" type="file" id="photos" name="photo" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SmallTittle" class="control-label"></label>
+                <input type="text" asp-for="SmallTittle" class="form-control" />
+                <span asp-validation-for="SmallTittle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MainTittle" class="control-label"></label>
+                <input type="text" asp-for="MainTittle" class="form-control" />
+                <span asp-validation-for="MainTittle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Url" class="control-label"></label>
+                <input type="text" asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+        </form>
+    </div>
+    
+
+</div>
+<div id="preview"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    document.getElementById("photos").addEventListener("change", function (event) {
+        var preview = document.getElementById("preview");
+        preview.innerHTML = "";
+
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var img = document.createElement("img");
+                img.src = e.target.result;
+                img.style.width = "300px";
+                preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+</script>

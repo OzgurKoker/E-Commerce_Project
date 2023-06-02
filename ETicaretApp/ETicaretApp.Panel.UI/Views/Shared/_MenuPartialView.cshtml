@@ -105,6 +105,16 @@
             </ul>
         </li>
         <li class="nav-item">
+            <a asp-controller="Slider" asp-action="Index" class="nav-link @(path.StartsWith("/Slider") ? "active" : "")">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Slaytlar
+
+
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a asp-controller="Auth" asp-action="Logout" class="nav-link">
                 <i class="nav-icon fas fa-lock"></i>
                 <p>
