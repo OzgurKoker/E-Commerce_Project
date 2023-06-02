@@ -10,7 +10,7 @@ namespace ETicaretApp.Entities
     {
         [DisplayName("Fotoğraf")]
         [Required(ErrorMessage = "Fotoğraf boş geçilemez")]
-        public string Name { get; set; }
+        public string Image { get; set; }
 
 
         [DisplayName("Vitrin Fotoğrafı mı?")]

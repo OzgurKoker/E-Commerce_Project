@@ -1,0 +1,43 @@
+﻿@model ProductImageViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="CreateImage" id="formImageCreate" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="ProductId" class="form-control" hidden />
+            <div class="form-group">
+                <label class="control-label">Fotoğraf</label>
+                <input class="form-control" type="file" id="photos" name="photo" />
+            </div>
+            <div class="custom-control custom-switch custom-switch-off-secondary custom-switch-on-success">
+                <input asp-for="IsShowcaseImage" type="checkbox" class="custom-control-input" id="IsShowcaseImage" data-bootstrap-switch>
+                <label class="custom-control-label" for="IsShowcaseImage"> Vitrin Fotoğrafı mı? </label>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div id="preview"></div>
+
+<script>
+    document.getElementById("photos").addEventListener("change", function (event) {
+        var preview = document.getElementById("preview");
+        preview.innerHTML = "";
+
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var img = document.createElement("img");
+                img.src = e.target.result;
+                img.style.width = "300px";
+                preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
