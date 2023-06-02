@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ETicaretApp.Entities\ETicaretApp.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\Product\" />
+  </ItemGroup>
+
 </Project>

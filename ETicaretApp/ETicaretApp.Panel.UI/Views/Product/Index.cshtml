@@ -101,6 +101,7 @@
                                         </td>
 
                                         <td>
+                                            <a onclick="openImageModal(@item.Id)" class="btn btn-secondary btn-sm" title="Fotoğraf Ekle"><i class="fa fa-image"></i></a>
                                             <a onclick="openDetailModal(@item.Id)" class="btn btn-secondary btn-sm" title="Detayları Ekle"><i class="fa fa-plus"></i></a>
                                             <a onclick="openDeleteModal('Product', @item.Id)" class="btn btn-danger btn-sm" title="Kaydı Sil"><i class="fa fa-trash"></i></a>
                                             <a onclick="openEditModal('Product', @item.Id)" class="btn btn-warning btn-sm" title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
@@ -132,6 +133,7 @@
 <vc:modal modal-id="modalProductDelete" header-text="Ürün Sil" form-id="formProductDelete" button-text="Sil" button-class="danger" detail-div-id="divDeleteModalDetail"></vc:modal>
 
 <vc:modal modal-id="modalProductDetail" header-text="Ürün Detay Ekle" form-id="formDetailCreate" button-text="Kaydet" button-class="primary" detail-div-id="divDetailModalDetail"></vc:modal>
+<vc:modal modal-id="modalProductImage" header-text="Ürün Fotoğrafı Ekle" form-id="formImageCreate" button-text="Kaydet" button-class="primary" detail-div-id="divImageModalDetail"></vc:modal>
 
 <script>
     function openDetailModal(id) {
@@ -141,6 +143,13 @@
 
 </script>
 
+<script>
+    function openImageModal(id) {
+        $("#divImageModalDetail").load("Product/ImageProductPartial/" + id);
+        $("#modalProductImage").modal("toggle");
+    }
+
+</script>
 @section Scripts {
     <!-- Bootstrap Switch -->
     <script src="~/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
