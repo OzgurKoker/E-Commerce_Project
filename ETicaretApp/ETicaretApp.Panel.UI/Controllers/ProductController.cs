@@ -4,8 +4,10 @@ using ETicaretApp.Entities;
 using ETicaretApp.Panel.UI.Models;
 using ETicaretApp.Panel.UI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETicaretApp.Panel.UI.Controllers
 {
@@ -25,8 +27,9 @@ namespace ETicaretApp.Panel.UI.Controllers
 
         public IActionResult Index()
         {
-            List<Product> productList=productManager.ListAll();
-            return View(productList);
+            //List<Product> productList = productManager.ListAll();
+            var listele = productManager.Query().Include(x=>x.Category).Include(x=>x.Brand);
+            return View(listele);
         }
 
 
@@ -81,6 +84,27 @@ namespace ETicaretApp.Panel.UI.Controllers
         public IActionResult CreateDetail(PropertyValue propertyValue)
         {
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost] 
+        public IActionResult updateShowCaseState(int id)
+        {
+            var product = productManager.GetById(id);
+            product.IsShowcaseProduct = !product.IsShowcaseProduct;
+            productManager.Update(product);
+            notificationService.Notification(NotifyType.Success, $"{product.Name} ürün güncellendi.");
+
+            return Ok("Kullanıcı durumu güncellendi..");
+        }
+        [HttpPost] 
+        public IActionResult updateNewProductState(int id)
+        {
+            var product = productManager.GetById(id);
+            product.IsNewProduct = !product.IsNewProduct;
+            productManager.Update(product);
+            notificationService.Notification(NotifyType.Success, $"{product.Name} ürün güncellendi.");
+
+            return Ok("Kullanıcı durumu güncellendi..");
         }
     }
 

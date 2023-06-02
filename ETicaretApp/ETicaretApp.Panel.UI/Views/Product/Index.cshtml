@@ -71,15 +71,34 @@
                                 {
                                     <tr>
 
-                                        <td>@item.CategoryId</td>
-                                        <td>@item.BrandId</td>
+                                        <td>@item.Category.Name</td>
+                                        <td>@item.Brand.Name</td>
                                         <td>@item.Name</td>
                                         <td>@item.Description</td>
                                         <td>@item.Price</td>
                                         <td>@item.DiscountedPrice</td>
                                         <td>@item.StockQuantity</td>
-                                        <td>@item.IsShowcaseProduct</td>
-                                        <td>@item.IsNewProduct</td>
+
+                                        <td>
+                                            @if (item.IsShowcaseProduct)
+                                            {
+                                                <span class="badge badge-success" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateShowCaseState(@item.Id)">Evet</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateShowCaseState(@item.Id)">Hayır</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.IsNewProduct)
+                                            {
+                                                <span class="badge badge-success" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateNewProductState(@item.Id)">Evet</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateNewProductState(@item.Id)">Hayır</span>
+                                            }
+                                        </td>
 
                                         <td>
                                             <a onclick="openDetailModal(@item.Id)" class="btn btn-secondary btn-sm" title="Detayları Ekle"><i class="fa fa-plus"></i></a>
@@ -121,3 +140,42 @@
     }
 
 </script>
+
+@section Scripts {
+    <!-- Bootstrap Switch -->
+    <script src="~/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
+
+
+    <script>
+        function updateShowCaseState(productId) {
+            $.ajax({
+                type: 'POST',
+                url: '/Product/updateShowCaseState/' + productId,
+                //data: "email: 'asasd', password: 'asda'",
+                success: function (result) {
+                    toastr.success(result);
+                    location.reload(true);
+                },
+                error: function () {
+                    toastr.error("İşlem sırasında hata oluştu..");
+                },
+            });
+        }
+
+        function updateNewProductState(productId) {
+            $.ajax({
+                type: 'POST',
+                url: '/Product/updateNewProductState/' + productId,
+                //data: "email: 'asasd', password: 'asda'",
+                success: function (result) {
+                    toastr.success(result);
+                    location.reload(true);
+                },
+                error: function () {
+                    toastr.error("İşlem sırasında hata oluştu..");
+                },
+            });
+        }
+    </script>
+}
