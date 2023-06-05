@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace ETicaretApp.Panel.UI.Controllers
@@ -20,6 +21,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         BrandManager brandManager = new BrandManager(new EfBrandRepository());
         CategoryPropertyManager categoryPropertyManager = new CategoryPropertyManager(new EfCategoryPropertyRepository());
         ProductImageManager ProductImageManager = new ProductImageManager(new EfProductImageRepository());
+        PropertyValueManager propertyValueManager = new PropertyValueManager(new EfPropertyValueRepository());
         private readonly INotificationService notificationService;
         private readonly IWebHostEnvironment webHostEnvironment;
 
@@ -78,16 +80,44 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
 
         public IActionResult DetailProductPartial(int id)
-        {
+        {//prudct ıd,prop id,prop name,prop value
+
+            List<NewProductDetailViewModel> newProductDetailViewModels = new List<NewProductDetailViewModel>();
+
+
             Product product = productManager.GetById(id);
             List<CategoryProperty> properties = categoryPropertyManager.ListAll().Where(x => x.CategoryId == product.CategoryId).ToList();
-            return PartialView("_DetailProductPartialView", properties);
+
+            foreach (CategoryProperty property in properties)
+            {
+                string value = "";
+                if (propertyValueManager.ListAll().Any(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id)) 
+                {
+                    value = propertyValueManager.ListAll().FirstOrDefault(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id).Value;
+                }
+                newProductDetailViewModels.Add(new NewProductDetailViewModel
+                {
+                    CtgPropertyId = property.Id,
+                    CtgPropertyName = property.Property,
+                    ProductId = product.Id,
+                    PropertyValue =value
+                });
+
+            }
+
+            return PartialView("_DetailProductPartialView", newProductDetailViewModels);
+
+
+
         }
 
         [HttpPost]
-        public IActionResult CreateDetail(PropertyValue propertyValue)
+        public IActionResult CreateDetail(List<ProductDetailViewModel> productDetailViewModels)
         {
-            return RedirectToAction(nameof(Index));
+
+
+            return Ok("SUCCESS");
+            //return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -155,7 +185,7 @@ namespace ETicaretApp.Panel.UI.Controllers
                                     }
                                 }
                             }
-                         
+
                             using (var fileStream = new FileStream(path, FileMode.Create))
                             {
                                 photo.CopyTo(fileStream);

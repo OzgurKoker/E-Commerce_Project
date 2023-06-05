@@ -126,14 +126,14 @@
     <!-- /.content -->
 </div>
 
-<vc:modal modal-id="modalProductCreate" header-text="Ürün Oluştur" form-id="formProductCreate" button-text="Kaydet" button-class="primary" detail-div-id="divCreateModalDetail"></vc:modal>
+<vc:modal modal-id="modalProductCreate" header-text="Ürün Oluştur" form-id="formProductCreate" button-text="Kaydet" button-onclick="" button-class="primary" button-type="submit" detail-div-id="divCreateModalDetail"></vc:modal>
 
-<vc:modal modal-id="modalProductEdit" header-text="Ürün Güncelle" form-id="formProductEdit" button-text="Kaydet" button-class="primary" detail-div-id="divEditModalDetail"></vc:modal>
+<vc:modal modal-id="modalProductEdit" header-text="Ürün Güncelle" form-id="formProductEdit" button-text="Kaydet" button-onclick="" button-class="primary" button-type="submit" detail-div-id="divEditModalDetail"></vc:modal>
 
-<vc:modal modal-id="modalProductDelete" header-text="Ürün Sil" form-id="formProductDelete" button-text="Sil" button-class="danger" detail-div-id="divDeleteModalDetail"></vc:modal>
+<vc:modal modal-id="modalProductDelete" header-text="Ürün Sil" form-id="formProductDelete" button-text="Sil" button-onclick="" button-class="danger" button-type="submit" detail-div-id="divDeleteModalDetail"></vc:modal>
 
-<vc:modal modal-id="modalProductDetail" header-text="Ürün Detay Ekle" form-id="formDetailCreate" button-text="Kaydet" button-class="primary" detail-div-id="divDetailModalDetail"></vc:modal>
-<vc:modal modal-id="modalProductImage" header-text="Ürün Fotoğrafı Ekle" form-id="formImageCreate" button-text="Kaydet" button-class="primary" detail-div-id="divImageModalDetail"></vc:modal>
+<vc:modal modal-id="modalProductDetail" header-text="Ürün Detay Ekle" form-id="formDetailCreate" button-text="Kaydet" button-onclick="submitDetail()" button-class="primary" button-type="button" detail-div-id="divDetailModalDetail"></vc:modal>
+<vc:modal modal-id="modalProductImage" header-text="Ürün Fotoğrafı Ekle" form-id="formImageCreate" button-text="Kaydet" button-onclick="" button-class="primary" button-type="submit" detail-div-id="divImageModalDetail"></vc:modal>
 
 <script>
     function openDetailModal(id) {

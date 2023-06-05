@@ -1,17 +1,17 @@
-﻿@model IEnumerable<CategoryProperty>
+﻿@model IEnumerable<NewProductDetailViewModel>
 
 
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="CreateDetail" id="formDetailCreate">
+        <form id="formDetailCreate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             @foreach (var item in Model)
             {
                 <div class="form-group">
-                    <label asp-for="@item.Property" class="control-label">@item.Property</label>
-                    <input id="PropertyValue" name="PropertyValue" type="text" asp-for="@item.Property" class="form-control" />
-                    <span asp-validation-for="@item.Property" class="text-danger"></span>
+                    <label class="control-label">@item.CtgPropertyName</label>
+                    <input id="@item.CtgPropertyId" value="@item.PropertyValue" type="text" class="form-control property-value" />
+                    
                 </div>
             }
 
@@ -20,3 +20,37 @@
 </div>
 
 
+<script type="text/javascript">
+    function submitDetail() {
+        var ProductDetailList = [];
+
+        $(".property-value").each(function () {
+
+            ProductDetailList.push({
+                Id: $(this).attr("id"),
+                Value: $(this).val()
+            });
+        });
+        console.log(ProductDetailList);
+        $.ajax({
+            type: 'POST',
+            url: '/Product/CreateDetail',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: { productDetailViewModels: ProductDetailList },
+
+            success: function (result) {
+                //window.location.href="/Product/"
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+
+
+        })
+
+
+    }
+
+</script>
