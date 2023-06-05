@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace ETicaretApp.Panel.UI.Controllers
 {
@@ -80,7 +81,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
 
         public IActionResult DetailProductPartial(int id)
-        {//prudct ıd,prop id,prop name,prop value
+        {
 
             List<NewProductDetailViewModel> newProductDetailViewModels = new List<NewProductDetailViewModel>();
 
@@ -91,7 +92,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             foreach (CategoryProperty property in properties)
             {
                 string value = "";
-                if (propertyValueManager.ListAll().Any(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id)) 
+                if (propertyValueManager.ListAll().Any(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id))
                 {
                     value = propertyValueManager.ListAll().FirstOrDefault(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id).Value;
                 }
@@ -100,7 +101,7 @@ namespace ETicaretApp.Panel.UI.Controllers
                     CtgPropertyId = property.Id,
                     CtgPropertyName = property.Property,
                     ProductId = product.Id,
-                    PropertyValue =value
+                    PropertyValue = value
                 });
 
             }
@@ -112,12 +113,38 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateDetail(List<ProductDetailViewModel> productDetailViewModels)
+        public IActionResult CreateDetail(List<NewProductDetailViewModel> productDetailViewModels)
         {
-
-
-            return Ok("SUCCESS");
-            //return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                foreach (var item in productDetailViewModels)
+                {
+                    if (propertyValueManager.ListAll().Any(x => x.ProductId == item.ProductId && x.CategoryPropertyId == item.CtgPropertyId))
+                    {
+                        propertyValueManager.Update(new PropertyValue
+                        {
+                            Value = item.PropertyValue,
+                            ProductId = item.ProductId,
+                            CategoryPropertyId = item.CtgPropertyId
+                        });
+                    }
+                    else
+                    {
+                        propertyValueManager.Create(new PropertyValue
+                        {
+                            Value = item.PropertyValue,
+                            ProductId = item.ProductId,
+                            CategoryPropertyId = item.CtgPropertyId
+                        });
+                    }
+                }
+            }
+            else
+            {
+                notificationService.Notification(NotifyType.Error, "Tüm alanları doldurmak zorunludur");
+                return BadRequest();
+            }
+            return Ok();
         }
 
         [HttpPost]

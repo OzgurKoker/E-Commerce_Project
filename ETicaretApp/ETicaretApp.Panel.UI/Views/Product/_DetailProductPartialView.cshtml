@@ -8,10 +8,13 @@
 
             @foreach (var item in Model)
             {
+
                 <div class="form-group">
-                    <label class="control-label">@item.CtgPropertyName</label>
-                    <input id="@item.CtgPropertyId" value="@item.PropertyValue" type="text" class="form-control property-value" />
-                    
+                    <label class="control-label property-Name" id="@item.CtgPropertyName">@item.CtgPropertyName</label>
+                    <input id="@item.CtgPropertyId" value="@item.PropertyValue" type="text" class="form-control property-value" required />
+                    <input class="form-control property-productId" id="@item.ProductId" hidden />
+                    @*<input class="form-control property-id" id="@item.Id" hidden />*@
+
                 </div>
             }
 
@@ -27,8 +30,11 @@
         $(".property-value").each(function () {
 
             ProductDetailList.push({
-                Id: $(this).attr("id"),
-                Value: $(this).val()
+                CtgPropertyId: $(this).attr("id"),
+                PropertyValue: $(this).val(),
+                ProductId: $(".property-productId").attr("id"),
+                CtgPropertyName: $(".property-Name").attr("id"),
+                //Id: $(".property-id").attr("id")
             });
         });
         console.log(ProductDetailList);
@@ -39,12 +45,12 @@
             data: { productDetailViewModels: ProductDetailList },
 
             success: function (result) {
-                //window.location.href="/Product/"
-                console.log(result);
+                window.location.href = "/Product"
+
             },
             error: function () {
-                //alert('Failed to receive the Data');
-                console.log('Failed ');
+                window.location.href = "/Product"
+
             }
 
 
