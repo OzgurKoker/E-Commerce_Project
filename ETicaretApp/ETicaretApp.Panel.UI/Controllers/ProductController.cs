@@ -92,6 +92,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             foreach (CategoryProperty property in properties)
             {
                 string value = "";
+
                 if (propertyValueManager.ListAll().Any(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id))
                 {
                     value = propertyValueManager.ListAll().FirstOrDefault(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id).Value;
@@ -121,12 +122,9 @@ namespace ETicaretApp.Panel.UI.Controllers
                 {
                     if (propertyValueManager.ListAll().Any(x => x.ProductId == item.ProductId && x.CategoryPropertyId == item.CtgPropertyId))
                     {
-                        propertyValueManager.Update(new PropertyValue
-                        {
-                            Value = item.PropertyValue,
-                            ProductId = item.ProductId,
-                            CategoryPropertyId = item.CtgPropertyId
-                        });
+                        var prop = propertyValueManager.ListAll().FirstOrDefault(x => x.ProductId == item.ProductId && x.CategoryPropertyId == item.CtgPropertyId);
+                        prop.Value = item.PropertyValue;
+                        propertyValueManager.Update(prop);
                     }
                     else
                     {
@@ -257,6 +255,89 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
 
+        }
+        public IActionResult DeleteProductPartial(int id)
+        {
+            Product product = productManager.GetById(id);
+
+
+            return PartialView("_DeleteProductPartialView", product);
+
+        }
+        [HttpPost]
+        public IActionResult Delete(Product product)
+        {
+
+            try
+            {
+                productManager.Delete(product);
+                notificationService.Notification(NotifyType.Success, $"{product.Name} isimli marka silindi.");
+            }
+            catch (Exception ex)
+            {
+
+                notificationService.Notification(NotifyType.Error, ex.Message);
+            }
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult EditProductPartial(int id)
+        {
+            Product product = productManager.GetById(id);
+            EditProductViewModel viewModel = new EditProductViewModel() 
+            { 
+            Id = product.Id,
+            BrandId = product.BrandId,
+            CategoryId = product.CategoryId,
+            Description = product.Description,
+            DiscountedPrice = product.DiscountedPrice,
+            IsNewProduct = product.IsNewProduct,
+            IsShowcaseProduct = product.IsShowcaseProduct,
+            Name = product.Name,
+            Price = product.Price,  
+            StockQuantity = product.StockQuantity
+
+            };
+            ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId != null), "Id", "Name");
+            ViewBag.Brand = new SelectList(brandManager.ListAll(), "Id", "Name");
+
+            return PartialView("_EditProductPartialView", viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditProductViewModel editProductViewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    productManager.Update(new Product()
+                    {
+                        Id = editProductViewModel.Id,
+                        BrandId = editProductViewModel.BrandId,
+                        CategoryId = editProductViewModel.CategoryId,
+                        Description = editProductViewModel.Description,
+                        DiscountedPrice = editProductViewModel.DiscountedPrice,
+                        IsNewProduct = editProductViewModel.IsNewProduct,
+                        IsShowcaseProduct = editProductViewModel.IsShowcaseProduct,
+                        Name = editProductViewModel.Name,
+                        Price = editProductViewModel.Price,
+                        StockQuantity = editProductViewModel.StockQuantity
+                    });
+                    notificationService.Notification(NotifyType.Success, $"{editProductViewModel.Name}İsimli Ürün Başarılı Bir Şekilde Oluşturuldu");
+                }
+                catch (Exception ex)
+                {
+                    notificationService.Notification(NotifyType.Error, ex.Message);
+                }
+            }
+            else
+                ModelStateControl.KontrolEt(notificationService, ModelState);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

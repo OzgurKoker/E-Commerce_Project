@@ -4,8 +4,11 @@ using System.ComponentModel;
 
 namespace ETicaretApp.Panel.UI.Models
 {
-    public class ProductViewModel
+    public class EditProductViewModel
     {
+        [Required]
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Ürün Adı Alanı Boş Geçilemez.")]
         [MaxLength(100, ErrorMessage = "Ürün adı alanı 100 karakterden fazla olamaz.")]
         [DisplayName("Ürün Adı")]

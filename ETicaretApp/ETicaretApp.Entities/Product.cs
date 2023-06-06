@@ -1,4 +1,4 @@
-﻿using ETicaretApp.Entities.Abstract;
+﻿    using ETicaretApp.Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +20,7 @@ namespace ETicaretApp.Entities
 
 
         [Required(ErrorMessage = "Ürün Açıklama Alanı Boş Geçilemez.")]
-        [MaxLength(500,ErrorMessage = "Ürün açıklama alanı 500 karakterden fazla olamaz.")]
+        [MaxLength(3000,ErrorMessage = "Ürün açıklama alanı 3000 karakterden fazla olamaz.")]
         [DisplayName("Ürün Açıklaması")]
         public string Description { get; set; }
 
