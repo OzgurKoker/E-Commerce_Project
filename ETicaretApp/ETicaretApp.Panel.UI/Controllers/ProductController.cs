@@ -21,7 +21,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         BrandManager brandManager = new BrandManager(new EfBrandRepository());
         CategoryPropertyManager categoryPropertyManager = new CategoryPropertyManager(new EfCategoryPropertyRepository());
-        ProductImageManager ProductImageManager = new ProductImageManager(new EfProductImageRepository());
+        ProductImageManager productImageManager = new ProductImageManager(new EfProductImageRepository());
         PropertyValueManager propertyValueManager = new PropertyValueManager(new EfPropertyValueRepository());
         private readonly INotificationService notificationService;
         private readonly IWebHostEnvironment webHostEnvironment;
@@ -34,8 +34,8 @@ namespace ETicaretApp.Panel.UI.Controllers
 
         public IActionResult Index()
         {
-            //List<Product> productList = productManager.ListAll();
             var listele = productManager.Query().Include(x => x.Category).Include(x => x.Brand);
+
             return View(listele);
         }
 
@@ -65,7 +65,8 @@ namespace ETicaretApp.Panel.UI.Controllers
                         IsShowcaseProduct = product.IsShowcaseProduct,
                         IsNewProduct = product.IsNewProduct,
                         BrandId = product.BrandId,
-                        CategoryId = product.CategoryId
+                        CategoryId = product.CategoryId,
+                        State=product.State
                     });
                     notificationService.Notification(NotifyType.Success, $"{product.Name} İsimli Ürün Başarılı Bir Şekilde Oluşturuldu");
                 }
@@ -153,7 +154,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             productManager.Update(product);
             notificationService.Notification(NotifyType.Success, $"{product.Name} ürün güncellendi.");
 
-            return Ok("Kullanıcı durumu güncellendi..");
+            return Ok("durumu güncellendi..");
         }
         [HttpPost]
         public IActionResult updateNewProductState(int id)
@@ -163,7 +164,17 @@ namespace ETicaretApp.Panel.UI.Controllers
             productManager.Update(product);
             notificationService.Notification(NotifyType.Success, $"{product.Name} ürün güncellendi.");
 
-            return Ok("Kullanıcı durumu güncellendi..");
+            return Ok("durumu güncellendi..");
+        }
+        [HttpPost]
+        public IActionResult updateState(int id)
+        {
+            var product = productManager.GetById(id);
+            product.State = !product.State;
+            productManager.Update(product);
+            notificationService.Notification(NotifyType.Success, $"{product.Name} ürün güncellendi.");
+
+            return Ok("durumu güncellendi..");
         }
         public IActionResult ImageProductPartial(int id)
         {
@@ -196,7 +207,7 @@ namespace ETicaretApp.Panel.UI.Controllers
                             string newFileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                             string path = Path.Combine(wwwrootPath + "/img/Product/", newFileName);
 
-                            List<ProductImage> productImageList = ProductImageManager.ListAll().Where(x => x.ProductId == productImage.ProductId).ToList();
+                            List<ProductImage> productImageList = productImageManager.ListAll().Where(x => x.ProductId == productImage.ProductId).ToList();
 
                             //vitrin fotografı olarak sectiyse db'ye bakıyor daha önce o ürüne vitrin fotosu atanmış mı diye
                             if (productImage.IsShowcaseImage)
@@ -216,7 +227,7 @@ namespace ETicaretApp.Panel.UI.Controllers
                                 photo.CopyTo(fileStream);
                             }
 
-                            ProductImageManager.Create(new ProductImage()
+                            productImageManager.Create(new ProductImage()
                             {
                                 Image = newFileName,
                                 IsShowcaseImage = productImage.IsShowcaseImage,
@@ -297,8 +308,8 @@ namespace ETicaretApp.Panel.UI.Controllers
             IsShowcaseProduct = product.IsShowcaseProduct,
             Name = product.Name,
             Price = product.Price,  
-            StockQuantity = product.StockQuantity
-
+            StockQuantity = product.StockQuantity,
+            State= product.State
             };
             ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId != null), "Id", "Name");
             ViewBag.Brand = new SelectList(brandManager.ListAll(), "Id", "Name");
@@ -325,7 +336,8 @@ namespace ETicaretApp.Panel.UI.Controllers
                         IsShowcaseProduct = editProductViewModel.IsShowcaseProduct,
                         Name = editProductViewModel.Name,
                         Price = editProductViewModel.Price,
-                        StockQuantity = editProductViewModel.StockQuantity
+                        StockQuantity = editProductViewModel.StockQuantity,
+                        State= editProductViewModel.State
                     });
                     notificationService.Notification(NotifyType.Success, $"{editProductViewModel.Name}İsimli Ürün Başarılı Bir Şekilde Oluşturuldu");
                 }

@@ -42,6 +42,9 @@ namespace ETicaretApp.Panel.UI.Models
         [Required(ErrorMessage = "Yeni Ürün Alanı Boş Geçilemez.")]
         public bool IsNewProduct { get; set; }
 
+        [DisplayName("Durum")]
+        public bool State { get; set; }
+
         [DisplayName("Marka")]
         public int BrandId { get; set; }
 
