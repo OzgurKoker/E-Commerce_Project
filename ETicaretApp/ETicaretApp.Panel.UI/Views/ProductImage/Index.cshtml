@@ -1,0 +1,158 @@
+﻿@model IEnumerable<ProductImage>
+
+@{
+    ViewData["Title"] = "Ürün Fotoğrafları Listesi";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Ürün Fotoğrafları Listesi</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">Ürün Fotoğrafları Listesi</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="btn btn-primary btn-sm" onclick="openCreateModal('ProductImage')">Yeni Ürün Fotoğrafı Oluştur</a>
+
+                        <div style="width:200px;">
+                            <form asp-action="Index">
+                                <select class="form-control select2" name="productId" onchange="submitForm()">
+                                    <option value="0">Hepsini listele</option>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewData["Products"])
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-primary">getir</button>
+                            </form>
+                        </div>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Fotoğraf</th>
+                                    <th>Ürün</th>
+                                    <th>Vitrin Fotoğrafı mı ?</th>
+                                    <th width="80px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            <div class="user-block" style="width: 200px;height:auto;">
+                                                <img class="img-md" src="~/img/Product/@item.Image" alt="Product Image" style="width: 200px;height:auto;">
+                                            </div>
+                                        </td>
+                                        <td>@item.Product.Name</td>
+                                        <td>
+                                            @if (item.IsShowcaseImage)
+                                            {
+                                                <span  class="badge badge-success" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateIsShowcaseImage(@item.Product.Id)">Evet</span>
+                                            }
+                                            else
+                                            {
+                                                <span  class="badge badge-danger" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateIsShowcaseImage(@item.Product.Id)">Hayır</span>
+                                            }
+                                        </td>
+                            
+
+
+                                        <td>
+                                            <a onclick="openDeleteModal('ProductImage', @item.Id)" class="btn btn-danger btn-sm" title="Kaydı Sil"><i class="fa fa-trash"></i></a>
+                                            <a onclick="openEditModal('ProductImage', @item.Id)" class="btn btn-warning btn-sm" title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+
+            <!-- /.card-body -->
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+
+<vc:modal modal-id="modalProductImageCreate" header-text="Ürün Fotoğrafı Oluştur" form-id="formProductImageCreate" button-text="Kaydet" button-onclick="" button-class="primary" button-type="submit" detail-div-id="divCreateModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalProductImageEdit" header-text="Ürün Fotoğrafı Güncelle" form-id="formProductImageEdit" button-text="Kaydet" button-onclick="" button-class="primary" button-type="submit" detail-div-id="divEditModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalProductImageDelete" header-text="Ürün Fotoğrafı Sil" form-id="formProductImageDelete" button-text="Sil" button-onclick="" button-class="danger" button-type="submit" detail-div-id="divDeleteModalDetail"></vc:modal>
+
+@*@section Scripts {
+    <!-- Bootstrap Switch -->
+    <script src="~/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
+
+
+    <script>
+        function updateIsShowcaseImage(productImageId) {
+      
+            $.ajax({
+                type: 'POST',
+                url: '/ProductImage/updateIsShowcaseImage/' + productImageId,
+                //data: "email: 'asasd', password: 'asda'",
+                success: function (result) {
+                    toastr.success(result);
+                    location.reload(true);
+                },
+                error: function () {
+                    toastr.error("İşlem sırasında hata oluştu..");
+                },
+            });
+        }
+
+
+
+    </script>
+
+
+}*@

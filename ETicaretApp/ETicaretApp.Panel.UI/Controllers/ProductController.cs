@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace ETicaretApp.Panel.UI.Controllers
 {
@@ -20,7 +21,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         BrandManager brandManager = new BrandManager(new EfBrandRepository());
         CategoryPropertyManager categoryPropertyManager = new CategoryPropertyManager(new EfCategoryPropertyRepository());
-        ProductImageManager ProductImageManager = new ProductImageManager(new EfProductImageRepository());
+        ProductImageManager productImageManager = new ProductImageManager(new EfProductImageRepository());
         PropertyValueManager propertyValueManager = new PropertyValueManager(new EfPropertyValueRepository());
         private readonly INotificationService notificationService;
         private readonly IWebHostEnvironment webHostEnvironment;
@@ -33,8 +34,8 @@ namespace ETicaretApp.Panel.UI.Controllers
 
         public IActionResult Index()
         {
-            //List<Product> productList = productManager.ListAll();
             var listele = productManager.Query().Include(x => x.Category).Include(x => x.Brand);
+
             return View(listele);
         }
 
@@ -64,7 +65,8 @@ namespace ETicaretApp.Panel.UI.Controllers
                         IsShowcaseProduct = product.IsShowcaseProduct,
                         IsNewProduct = product.IsNewProduct,
                         BrandId = product.BrandId,
-                        CategoryId = product.CategoryId
+                        CategoryId = product.CategoryId,
+                        State=product.State
                     });
                     notificationService.Notification(NotifyType.Success, $"{product.Name} İsimli Ürün Başarılı Bir Şekilde Oluşturuldu");
                 }
@@ -80,7 +82,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
 
         public IActionResult DetailProductPartial(int id)
-        {//prudct ıd,prop id,prop name,prop value
+        {
 
             List<NewProductDetailViewModel> newProductDetailViewModels = new List<NewProductDetailViewModel>();
 
@@ -91,7 +93,8 @@ namespace ETicaretApp.Panel.UI.Controllers
             foreach (CategoryProperty property in properties)
             {
                 string value = "";
-                if (propertyValueManager.ListAll().Any(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id)) 
+
+                if (propertyValueManager.ListAll().Any(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id))
                 {
                     value = propertyValueManager.ListAll().FirstOrDefault(x => x.ProductId == product.Id && x.CategoryPropertyId == property.Id).Value;
                 }
@@ -100,7 +103,7 @@ namespace ETicaretApp.Panel.UI.Controllers
                     CtgPropertyId = property.Id,
                     CtgPropertyName = property.Property,
                     ProductId = product.Id,
-                    PropertyValue =value
+                    PropertyValue = value
                 });
 
             }
@@ -112,12 +115,35 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateDetail(List<ProductDetailViewModel> productDetailViewModels)
+        public IActionResult CreateDetail(List<NewProductDetailViewModel> productDetailViewModels)
         {
-
-
-            return Ok("SUCCESS");
-            //return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                foreach (var item in productDetailViewModels)
+                {
+                    if (propertyValueManager.ListAll().Any(x => x.ProductId == item.ProductId && x.CategoryPropertyId == item.CtgPropertyId))
+                    {
+                        var prop = propertyValueManager.ListAll().FirstOrDefault(x => x.ProductId == item.ProductId && x.CategoryPropertyId == item.CtgPropertyId);
+                        prop.Value = item.PropertyValue;
+                        propertyValueManager.Update(prop);
+                    }
+                    else
+                    {
+                        propertyValueManager.Create(new PropertyValue
+                        {
+                            Value = item.PropertyValue,
+                            ProductId = item.ProductId,
+                            CategoryPropertyId = item.CtgPropertyId
+                        });
+                    }
+                }
+            }
+            else
+            {
+                notificationService.Notification(NotifyType.Error, "Tüm alanları doldurmak zorunludur");
+                return BadRequest();
+            }
+            return Ok();
         }
 
         [HttpPost]
@@ -128,7 +154,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             productManager.Update(product);
             notificationService.Notification(NotifyType.Success, $"{product.Name} ürün güncellendi.");
 
-            return Ok("Kullanıcı durumu güncellendi..");
+            return Ok("durumu güncellendi..");
         }
         [HttpPost]
         public IActionResult updateNewProductState(int id)
@@ -138,7 +164,17 @@ namespace ETicaretApp.Panel.UI.Controllers
             productManager.Update(product);
             notificationService.Notification(NotifyType.Success, $"{product.Name} ürün güncellendi.");
 
-            return Ok("Kullanıcı durumu güncellendi..");
+            return Ok("durumu güncellendi..");
+        }
+        [HttpPost]
+        public IActionResult updateState(int id)
+        {
+            var product = productManager.GetById(id);
+            product.State = !product.State;
+            productManager.Update(product);
+            notificationService.Notification(NotifyType.Success, $"{product.Name} ürün güncellendi.");
+
+            return Ok("durumu güncellendi..");
         }
         public IActionResult ImageProductPartial(int id)
         {
@@ -171,7 +207,7 @@ namespace ETicaretApp.Panel.UI.Controllers
                             string newFileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                             string path = Path.Combine(wwwrootPath + "/img/Product/", newFileName);
 
-                            List<ProductImage> productImageList = ProductImageManager.ListAll().Where(x => x.ProductId == productImage.ProductId).ToList();
+                            List<ProductImage> productImageList = productImageManager.ListAll().Where(x => x.ProductId == productImage.ProductId).ToList();
 
                             //vitrin fotografı olarak sectiyse db'ye bakıyor daha önce o ürüne vitrin fotosu atanmış mı diye
                             if (productImage.IsShowcaseImage)
@@ -191,7 +227,7 @@ namespace ETicaretApp.Panel.UI.Controllers
                                 photo.CopyTo(fileStream);
                             }
 
-                            ProductImageManager.Create(new ProductImage()
+                            productImageManager.Create(new ProductImage()
                             {
                                 Image = newFileName,
                                 IsShowcaseImage = productImage.IsShowcaseImage,
@@ -230,6 +266,90 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
 
+        }
+        public IActionResult DeleteProductPartial(int id)
+        {
+            Product product = productManager.GetById(id);
+
+
+            return PartialView("_DeleteProductPartialView", product);
+
+        }
+        [HttpPost]
+        public IActionResult Delete(Product product)
+        {
+
+            try
+            {
+                productManager.Delete(product);
+                notificationService.Notification(NotifyType.Success, $"{product.Name} isimli marka silindi.");
+            }
+            catch (Exception ex)
+            {
+
+                notificationService.Notification(NotifyType.Error, ex.Message);
+            }
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult EditProductPartial(int id)
+        {
+            Product product = productManager.GetById(id);
+            EditProductViewModel viewModel = new EditProductViewModel() 
+            { 
+            Id = product.Id,
+            BrandId = product.BrandId,
+            CategoryId = product.CategoryId,
+            Description = product.Description,
+            DiscountedPrice = product.DiscountedPrice,
+            IsNewProduct = product.IsNewProduct,
+            IsShowcaseProduct = product.IsShowcaseProduct,
+            Name = product.Name,
+            Price = product.Price,  
+            StockQuantity = product.StockQuantity,
+            State= product.State
+            };
+            ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId != null), "Id", "Name");
+            ViewBag.Brand = new SelectList(brandManager.ListAll(), "Id", "Name");
+
+            return PartialView("_EditProductPartialView", viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditProductViewModel editProductViewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    productManager.Update(new Product()
+                    {
+                        Id = editProductViewModel.Id,
+                        BrandId = editProductViewModel.BrandId,
+                        CategoryId = editProductViewModel.CategoryId,
+                        Description = editProductViewModel.Description,
+                        DiscountedPrice = editProductViewModel.DiscountedPrice,
+                        IsNewProduct = editProductViewModel.IsNewProduct,
+                        IsShowcaseProduct = editProductViewModel.IsShowcaseProduct,
+                        Name = editProductViewModel.Name,
+                        Price = editProductViewModel.Price,
+                        StockQuantity = editProductViewModel.StockQuantity,
+                        State= editProductViewModel.State
+                    });
+                    notificationService.Notification(NotifyType.Success, $"{editProductViewModel.Name}İsimli Ürün Başarılı Bir Şekilde Oluşturuldu");
+                }
+                catch (Exception ex)
+                {
+                    notificationService.Notification(NotifyType.Error, ex.Message);
+                }
+            }
+            else
+                ModelStateControl.KontrolEt(notificationService, ModelState);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -1,31 +1,27 @@
-﻿    using ETicaretApp.Entities.Abstract;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using ETicaretApp.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
-namespace ETicaretApp.Entities
+namespace ETicaretApp.Panel.UI.Models
 {
-    [Table("Products")]
-    public class Product:EntityBase
+    public class EditProductViewModel
     {
-        [Required(ErrorMessage ="Ürün Adı Alanı Boş Geçilemez.")]
-        [MaxLength(100,ErrorMessage = "Ürün adı alanı 100 karakterden fazla olamaz.")]
+        [Required]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Ürün Adı Alanı Boş Geçilemez.")]
+        [MaxLength(100, ErrorMessage = "Ürün adı alanı 100 karakterden fazla olamaz.")]
         [DisplayName("Ürün Adı")]
         public string Name { get; set; }
 
 
         [Required(ErrorMessage = "Ürün Açıklama Alanı Boş Geçilemez.")]
-        [MaxLength(3000,ErrorMessage = "Ürün açıklama alanı 3000 karakterden fazla olamaz.")]
+        [MaxLength(3000, ErrorMessage = "Ürün açıklama alanı 3000 karakterden fazla olamaz.")]
         [DisplayName("Ürün Açıklaması")]
         public string Description { get; set; }
 
 
-        [Required(ErrorMessage = "Fiyat Alanı Boş Geçilemez.")]
+ 
         [DisplayName("Ürün Fiyatı")]
         public double? Price { get; set; }
 
@@ -35,7 +31,7 @@ namespace ETicaretApp.Entities
         public double? DiscountedPrice { get; set; }
 
 
-        [Required(ErrorMessage ="Stok Alanı Boş Geçilemez.")]
+        [Required(ErrorMessage = "Stok Alanı Boş Geçilemez.")]
         [DisplayName("Ürün Stok")]
         public int StockQuantity { get; set; }
 
@@ -48,19 +44,14 @@ namespace ETicaretApp.Entities
         [DisplayName("Yeni Ürün mü?")]
         [Required(ErrorMessage = "Yeni Ürün Alanı Boş Geçilemez.")]
         public bool IsNewProduct { get; set; }
-
         [DisplayName("Durum")]
         public bool State { get; set; }
 
         [DisplayName("Marka")]
         public int BrandId { get; set; }
-        public virtual Brand Brand { get; set; }
 
         [DisplayName("Kategori")]
         public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
 
-        public virtual ICollection<ProductImage> ProductImages { get; set; }
-        public virtual ICollection<PropertyValue> PropertyValues  { get; set; }
     }
 }

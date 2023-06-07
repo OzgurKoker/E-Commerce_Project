@@ -4,6 +4,7 @@ using ETicaretApp.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ETicaretApp.DAL.Migrations
 {
     [DbContext(typeof(ETicaretAppContext))]
-    partial class ETicaretAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230606120316_product-update")]
+    partial class productupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,8 +103,8 @@ namespace ETicaretApp.DAL.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(3000)
-                        .HasColumnType("nvarchar(3000)");
+                        .HasMaxLength(1500)
+                        .HasColumnType("nvarchar(1500)");
 
                     b.Property<double?>("DiscountedPrice")
                         .HasColumnType("float");
@@ -120,9 +123,6 @@ namespace ETicaretApp.DAL.Migrations
                     b.Property<double?>("Price")
                         .IsRequired()
                         .HasColumnType("float");
-
-                    b.Property<bool>("State")
-                        .HasColumnType("bit");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");

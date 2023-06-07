@@ -1,11 +1,11 @@
-﻿@model ProductViewModel
+﻿@model EditProductViewModel
 
 
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="Create" id="formProductCreate">
+        <form asp-action="Edit" id="formProductEdit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+            <input hidden asp-for="Id" />
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select class="form-control select2" style="width: 100%;" asp-for="CategoryId" asp-items="ViewBag.Category">
@@ -45,7 +45,7 @@
                 </textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-
+          
 
             <div class="form-group">
                 <label asp-for="StockQuantity" class="control-label"></label>
@@ -62,7 +62,7 @@
                 <label class="custom-control-label" for="IsShowcaseProductSwitch"> Vitrin ürünü mü? </label>
             </div>
             <div class="custom-control custom-switch custom-switch-off-secondary custom-switch-on-success">
-                <input checked asp-for="State" type="checkbox" class="custom-control-input" id="State" data-bootstrap-switch>
+                <input asp-for="State" type="checkbox" class="custom-control-input" id="State" data-bootstrap-switch>
                 <label class="custom-control-label" for="State"> Aktif mi ? </label>
             </div>
         </form>
@@ -74,7 +74,6 @@
         // Summernote
         $('#summernote').summernote()
 
-
+      
     })
 </script>
-

@@ -13,7 +13,7 @@ namespace ETicaretApp.Panel.UI.Models
 
 
         [Required(ErrorMessage = "Ürün Açıklama Alanı Boş Geçilemez.")]
-        [MaxLength(500, ErrorMessage = "Ürün açıklama alanı 500 karakterden fazla olamaz.")]
+        [MaxLength(3000, ErrorMessage = "Ürün açıklama alanı 3000 karakterden fazla olamaz.")]
         [DisplayName("Ürün Açıklaması")]
         public string Description { get; set; }
 
@@ -41,6 +41,9 @@ namespace ETicaretApp.Panel.UI.Models
         [DisplayName("Yeni Ürün mü?")]
         [Required(ErrorMessage = "Yeni Ürün Alanı Boş Geçilemez.")]
         public bool IsNewProduct { get; set; }
+
+        [DisplayName("Durum")]
+        public bool State { get; set; }
 
         [DisplayName("Marka")]
         public int BrandId { get; set; }
