@@ -1,4 +1,7 @@
-﻿using ETicaretApp.UI.Models;
+﻿using ETicaretApp.BLL;
+using ETicaretApp.DAL.EntityFramework;
+using ETicaretApp.Entities;
+using ETicaretApp.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,7 +10,7 @@ namespace ETicaretApp.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        CategoryManager categoryManager=new CategoryManager(new EfCategoryRepository());
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -15,7 +18,9 @@ namespace ETicaretApp.UI.Controllers
 
         public IActionResult Index()
         {
-           return View();
+            
+          List<Category> categories= categoryManager.ListAll();
+           return View(categories);
         }
 
         public IActionResult Shop()
