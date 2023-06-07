@@ -107,7 +107,7 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a asp-action="Index" asp-controller="Home" class="nav-item nav-link @(path=="/" ? "active" : "") ">Home</a>
-                            <a asp-action="Shop" asp-controller="Home" class="nav-item nav-link  @(path.StartsWith("/Home/Shop") ? "active" : "")">Shop</a>
+                            <a asp-action="Index" asp-controller="Shop" class="nav-item nav-link  @(path.StartsWith("/Shop") ? "active" : "")">Shop</a>
                             
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>

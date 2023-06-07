@@ -87,14 +87,14 @@
                                         <td>
                                             @if (item.IsShowcaseImage)
                                             {
-                                                <span  class="badge badge-success" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateIsShowcaseImage(@item.Product.Id)">Evet</span>
+                                                <span class="badge badge-success "  style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateIsShowcaseImage(@item.Product.Id)">Evet</span>
                                             }
                                             else
                                             {
-                                                <span  class="badge badge-danger" style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateIsShowcaseImage(@item.Product.Id)">Hayır</span>
+                                                <span class="badge badge-danger "  style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateIsShowcaseImage(@item.Product.Id)">Hayır</span>
                                             }
                                         </td>
-                            
+
 
 
                                         <td>
@@ -127,32 +127,3 @@
 
 <vc:modal modal-id="modalProductImageDelete" header-text="Ürün Fotoğrafı Sil" form-id="formProductImageDelete" button-text="Sil" button-onclick="" button-class="danger" button-type="submit" detail-div-id="divDeleteModalDetail"></vc:modal>
 
-@*@section Scripts {
-    <!-- Bootstrap Switch -->
-    <script src="~/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-
-
-
-    <script>
-        function updateIsShowcaseImage(productImageId) {
-      
-            $.ajax({
-                type: 'POST',
-                url: '/ProductImage/updateIsShowcaseImage/' + productImageId,
-                //data: "email: 'asasd', password: 'asda'",
-                success: function (result) {
-                    toastr.success(result);
-                    location.reload(true);
-                },
-                error: function () {
-                    toastr.error("İşlem sırasında hata oluştu..");
-                },
-            });
-        }
-
-
-
-    </script>
-
-
-}*@

@@ -129,30 +129,6 @@ namespace ETicaretApp.Panel.UI.Controllers
             return RedirectToAction(nameof(Index));
 
         }
-        //[HttpPost]
-        //public IActionResult updateIsShowcaseImage(int id)
-        //{
-        //    var productImage = productImageManager.GetById(id);
-        //    List<ProductImage> productImageList = productImageManager.ListAll().Where(x => x.ProductId == id).ToList();
-          
-        //        foreach (var item in productImageList)
-        //        {
-        //            if (item.IsShowcaseImage)
-        //            {
-        //                notificationService.Notification(NotifyType.Error, "Bu ürüne daha önce vitrin fotoğrafı eklenmiş. Lütfen eskisini değiştirin.");
-        //                return RedirectToAction(nameof(Index));
-        //            }
 
-        //        }
-            
-
-        //    productImage.IsShowcaseImage = !productImage.IsShowcaseImage;
-        //    productImageManager.Update(productImage);
-        //    notificationService.Notification(NotifyType.Success, "vitrin fotoğrafı güncellendi.");
-        //    return Ok("durumu güncellendi..");
-
-
-
-        //}
     }
 }
