@@ -143,77 +143,77 @@ namespace ETicaretApp.Panel.UI.Controllers
 
         }
 
-        [HttpPost]
-        public IActionResult Edit(Slider slider, IFormFile photo)
-        {
-            try
-            {
-                if (photo != null)
-                {
-                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
-                    string fileExtension = Path.GetExtension(photo.FileName).ToLower();
+        //[HttpPost]
+        //public IActionResult Edit(Slider slider, IFormFile photo)
+        //{
+        //    try
+        //    {
+        //        if (photo != null)
+        //        {
+        //            string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+        //            string fileExtension = Path.GetExtension(photo.FileName).ToLower();
 
-                    if (allowedExtensions.Contains(fileExtension))
-                    {
-                        int fileSizeLimit = 10 * 1024 * 1024;
+        //            if (allowedExtensions.Contains(fileExtension))
+        //            {
+        //                int fileSizeLimit = 10 * 1024 * 1024;
 
-                        if (photo.Length <= fileSizeLimit)
-                        {
-                            string wwwrootPath = webHostEnvironment.WebRootPath;
-                            string fileName = Path.GetFileNameWithoutExtension(photo.FileName);
-                            string extension = Path.GetExtension(photo.FileName);
+        //                if (photo.Length <= fileSizeLimit)
+        //                {
+        //                    string wwwrootPath = webHostEnvironment.WebRootPath;
+        //                    string fileName = Path.GetFileNameWithoutExtension(photo.FileName);
+        //                    string extension = Path.GetExtension(photo.FileName);
 
-                            string newFileName = slider.Image;
-                            string path = Path.Combine(wwwrootPath + "/img/Slider/", newFileName);
+        //                    string newFileName = slider.Image;
+        //                    string path = Path.Combine(wwwrootPath + "/img/Slider/", newFileName);
 
-                            using (var fileStream = new FileStream(path, FileMode.Create))
-                            {
-                                photo.CopyTo(fileStream);
-                            }
+        //                    using (var fileStream = new FileStream(path, FileMode.Create))
+        //                    {
+        //                        photo.CopyTo(fileStream);
+        //                    }
 
-                            sliderManager.Update(new Slider()
-                            {
-                                Image = newFileName,
-                                MainTittle = slider.MainTittle,
-                                SmallTittle = slider.SmallTittle,
-                                Url = slider.Url
-
-
-                            });
-                            notificationService.Notification(NotifyType.Success, "Başarıyla fotoğraf eklendi.");
-
-                            return RedirectToAction(nameof(Index));
-                        }
-                        else
-                        {
-                            notificationService.Notification(NotifyType.Error, "Dosya boyutu limiti aşıldı (10mb)");
-                            return RedirectToAction(nameof(Index));
-                        }
-                    }
-                    else
-                    {
-                        notificationService.Notification(NotifyType.Error, "Geçersiz Dosya Formatı (jpg,jpeg,png) Seçiniz.");
-                        return RedirectToAction(nameof(Index));
-
-                    }
-                }
-                else
-                {
-                    notificationService.Notification(NotifyType.Error, "Fotoğraf Seçimi Zorunludur.");
-
-                }
-            }
-            catch (Exception ex)
-            {
-
-                notificationService.Notification(NotifyType.Error, ex.Message);
-
-            }
+        //                    sliderManager.Update(new Slider()
+        //                    {
+        //                        Image = newFileName,
+        //                        MainTittle = slider.MainTittle,
+        //                        SmallTittle = slider.SmallTittle,
+        //                        Url = slider.Url
 
 
-            return RedirectToAction(nameof(Index));
+        //                    });
+        //                    notificationService.Notification(NotifyType.Success, "Başarıyla fotoğraf eklendi.");
 
-        }
+        //                    return RedirectToAction(nameof(Index));
+        //                }
+        //                else
+        //                {
+        //                    notificationService.Notification(NotifyType.Error, "Dosya boyutu limiti aşıldı (10mb)");
+        //                    return RedirectToAction(nameof(Index));
+        //                }
+        //            }
+        //            else
+        //            {
+        //                notificationService.Notification(NotifyType.Error, "Geçersiz Dosya Formatı (jpg,jpeg,png) Seçiniz.");
+        //                return RedirectToAction(nameof(Index));
+
+        //            }
+        //        }
+        //        else
+        //        {
+        //            notificationService.Notification(NotifyType.Error, "Fotoğraf Seçimi Zorunludur.");
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        notificationService.Notification(NotifyType.Error, ex.Message);
+
+        //    }
+
+
+        //    return RedirectToAction(nameof(Index));
+
+        //}
 
 
     }
