@@ -1,9 +1,24 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opts =>
+    {
+        opts.Cookie.Name = "member.auth";
+        opts.ExpireTimeSpan=TimeSpan.FromDays(7);
+        opts.SlidingExpiration = false;
+        opts.LoginPath = "/Member/Login";
+        opts.LogoutPath = "/Member/Logout";
+        opts.AccessDeniedPath = "/Home/AccessDenied";
+
+    });
+
+
 
 var app = builder.Build();
 
@@ -22,7 +37,7 @@ app.UseStaticFiles();
 
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
