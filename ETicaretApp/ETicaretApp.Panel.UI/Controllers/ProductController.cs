@@ -180,6 +180,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return Ok("durumu güncellendi..");
         }
+
         public IActionResult ImageProductPartial(int id)
         {
             ProductImageViewModel productImage = new ProductImageViewModel()
@@ -272,6 +273,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             return RedirectToAction(nameof(Index));
 
         }
+
         public IActionResult DeleteProductPartial(int id)
         {
             Product product = productManager.GetById(id);
@@ -280,6 +282,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             return PartialView("_DeleteProductPartialView", product);
 
         }
+
         [HttpPost]
         public IActionResult Delete(Product product)
         {

@@ -10,6 +10,7 @@ namespace ETicaretApp.Panel.UI.Controllers
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
+        UserManager userManager = new UserManager(new EfUserRepository());
 
         private readonly INotificationService notificationService;
 
@@ -18,7 +19,6 @@ namespace ETicaretApp.Panel.UI.Controllers
             this.notificationService = notificationService;
         }
 
-        UserManager userManager = new UserManager(new EfUserRepository());
 
         public IActionResult Index()
         {
@@ -26,10 +26,12 @@ namespace ETicaretApp.Panel.UI.Controllers
             return View(userList);
 
         }
+
         public IActionResult CreateUserPartial()
         {
             return PartialView("_CreateUserPartialView", new User());
         }
+
         [HttpPost]
         public IActionResult Create(User user)
         {
@@ -60,12 +62,14 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult EditUserPartial(int id)
         {
             User user = userManager.GetById(id);
             return PartialView("_EditUserPartialView", user);
 
         }
+
         [HttpPost]
         public IActionResult Edit(User user)
         {
@@ -95,6 +99,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult DeleteUserPartial(int id)
         {
             User user = userManager.GetById(id);

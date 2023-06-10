@@ -25,11 +25,13 @@ namespace ETicaretApp.Panel.UI.Controllers
             List<Category> categoryList = categoryManager.ListAll();
             return View(categoryList);
         }
+
         public IActionResult CreateCategoryPartial()
         {
             ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId == null), "Id", "Name");
             return PartialView("_CreateCategoryPartialView");
         }
+
         [HttpPost]
         public IActionResult Create(CategoryViewModel ctgView)
         {
@@ -58,11 +60,13 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult EditCategoryPartial(int id)
         {
             Category category = categoryManager.GetById(id);
             return PartialView("_EditCategoryPartialView", category);
         }
+
         [HttpPost]
         public IActionResult Edit(Category category)
         {

@@ -28,14 +28,10 @@ namespace ETicaretApp.Panel.UI.Controllers
             return View(sliderList);
         }
 
-
-
         public IActionResult CreateSliderPartial()
         {
             return PartialView("_CreateSliderPartialView");
         }
-
-
 
         [HttpPost]
         public IActionResult Create(SliderViewModel slider,IFormFile photo)

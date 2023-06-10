@@ -40,13 +40,13 @@ namespace ETicaretApp.Panel.UI.Controllers
             return View(categoryProperties);
         }
 
-
         public IActionResult CreateCategoryPropertyPartial()
         {
             ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId != null), "Id", "Name");
 
             return PartialView("_CreateCategoryPropertyPartialView");
         }
+
         [HttpPost]
         public IActionResult Create(CategoryProperty categoryProperty)
         {
@@ -71,11 +71,13 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult EditCategoryPropertyPartial(int id)
         {
             CategoryProperty categoryProperty = categoryPropertyManager.GetById(id);
             return PartialView("_EditCategoryPropertyPartialView", categoryProperty);
         }
+
         [HttpPost]
         public IActionResult Edit(CategoryProperty categoryProperty)
         {
@@ -98,11 +100,13 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult DeleteCategoryPropertyPartial(int id)
         {
             CategoryProperty ctgProperty = categoryPropertyManager.GetById(id);
             return PartialView("_DeleteCategoryPropertyPartialView", ctgProperty);
         }
+
         [HttpPost]
         public IActionResult Delete(CategoryProperty categoryProperty)
         {

@@ -13,11 +13,11 @@ namespace ETicaretApp.Panel.UI.Controllers
     {
         UserManager userManager = new UserManager(new EfUserRepository());
 
-
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
@@ -52,6 +52,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return View(model);
         }
+
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

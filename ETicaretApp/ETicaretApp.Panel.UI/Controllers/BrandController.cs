@@ -20,15 +20,18 @@ namespace ETicaretApp.Panel.UI.Controllers
         {
             this.notificationService = notificationService;
         }
+
         public IActionResult Index()
         {
             List<Brand> brandList= brandManager.ListAll();
             return View(brandList);
         }
+
         public IActionResult CreateBrandPartial()
         {
             return PartialView("_CreateBrandPartialView");
         }
+
         [HttpPost]
         public IActionResult Create(Brand brand)
         {
@@ -50,6 +53,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult DeleteBrandPartial(int id)
         {
             Brand brand = brandManager.GetById(id);
@@ -58,6 +62,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             return PartialView("_DeleteBrandPartialView", brand);
 
         }
+
         [HttpPost]
         public IActionResult Delete(Brand brand)
         {
@@ -76,12 +81,14 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult EditBrandPartial(int id)
         {
             Brand brand = brandManager.GetById(id);
             return PartialView("_EditBrandPartialView", brand);
 
         }
+
         [HttpPost]
         public IActionResult Edit(Brand brand)
         {

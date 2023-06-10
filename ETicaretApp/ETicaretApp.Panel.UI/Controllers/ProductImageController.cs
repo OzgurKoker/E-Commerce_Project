@@ -40,12 +40,14 @@ namespace ETicaretApp.Panel.UI.Controllers
             ViewData["Products"] = new SelectList(productManager.ListAll(), "Id", "Name");
             return View(productImages);
         }
+
         public IActionResult CreateProductImagePartial()
         {
             ViewBag.Products = new SelectList(productManager.ListAll(), "Id", "Name");
 
             return PartialView("_CreateProductImagePartialView");
         }
+
         [HttpPost]
         public IActionResult Create(IFormFile photo, ProductImageViewModel productImage)
         {
