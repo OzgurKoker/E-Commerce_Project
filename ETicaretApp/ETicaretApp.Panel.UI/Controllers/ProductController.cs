@@ -47,6 +47,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return PartialView("_CreateProductPartialView");
         }
+
         [HttpPost]
         public IActionResult Create(ProductViewModel product)
         {
@@ -66,7 +67,8 @@ namespace ETicaretApp.Panel.UI.Controllers
                         IsNewProduct = product.IsNewProduct,
                         BrandId = product.BrandId,
                         CategoryId = product.CategoryId,
-                        State=product.State
+                        State = product.State,
+                        CreatedDate = product.CreatedDate
                     });
                     notificationService.Notification(NotifyType.Success, $"{product.Name} İsimli Ürün Başarılı Bir Şekilde Oluşturuldu");
                 }
@@ -156,6 +158,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return Ok("durumu güncellendi..");
         }
+
         [HttpPost]
         public IActionResult updateNewProductState(int id)
         {
@@ -166,6 +169,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return Ok("durumu güncellendi..");
         }
+
         [HttpPost]
         public IActionResult updateState(int id)
         {
@@ -184,6 +188,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             };
             return PartialView("_ImageProductPartialView", productImage);
         }
+
         [HttpPost]
         public IActionResult CreateImage(IFormFile photo, ProductImageViewModel productImage)
         {
@@ -297,19 +302,20 @@ namespace ETicaretApp.Panel.UI.Controllers
         public IActionResult EditProductPartial(int id)
         {
             Product product = productManager.GetById(id);
-            EditProductViewModel viewModel = new EditProductViewModel() 
-            { 
-            Id = product.Id,
-            BrandId = product.BrandId,
-            CategoryId = product.CategoryId,
-            Description = product.Description,
-            DiscountedPrice = product.DiscountedPrice,
-            IsNewProduct = product.IsNewProduct,
-            IsShowcaseProduct = product.IsShowcaseProduct,
-            Name = product.Name,
-            Price = product.Price,  
-            StockQuantity = product.StockQuantity,
-            State= product.State
+            EditProductViewModel viewModel = new EditProductViewModel()
+            {
+                Id = product.Id,
+                BrandId = product.BrandId,
+                CategoryId = product.CategoryId,
+                Description = product.Description,
+                DiscountedPrice = product.DiscountedPrice,
+                IsNewProduct = product.IsNewProduct,
+                IsShowcaseProduct = product.IsShowcaseProduct,
+                Name = product.Name,
+                Price = product.Price,
+                StockQuantity = product.StockQuantity,
+                State = product.State,
+                CreatedDate = product.CreatedDate
             };
             ViewBag.Category = new SelectList(categoryManager.ListAll().Where(x => x.CategoryId != null), "Id", "Name");
             ViewBag.Brand = new SelectList(brandManager.ListAll(), "Id", "Name");
@@ -337,7 +343,8 @@ namespace ETicaretApp.Panel.UI.Controllers
                         Name = editProductViewModel.Name,
                         Price = editProductViewModel.Price,
                         StockQuantity = editProductViewModel.StockQuantity,
-                        State= editProductViewModel.State
+                        State = editProductViewModel.State,
+                        CreatedDate = editProductViewModel.CreatedDate
                     });
                     notificationService.Notification(NotifyType.Success, $"{editProductViewModel.Name}İsimli Ürün Başarılı Bir Şekilde Oluşturuldu");
                 }

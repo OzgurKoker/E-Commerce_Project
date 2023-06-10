@@ -3,6 +3,7 @@ using ETicaretApp.DAL.EntityFramework;
 using ETicaretApp.Entities;
 using ETicaretApp.UI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace ETicaretApp.UI.Controllers
@@ -11,6 +12,7 @@ namespace ETicaretApp.UI.Controllers
     {
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         ProductManager productManager= new ProductManager(new EfProductRepository());
+        ProductImageManager productImageManager= new ProductImageManager(new EfProductImageRepository());
     
 
         public IActionResult Index()
@@ -18,7 +20,8 @@ namespace ETicaretApp.UI.Controllers
             var model = new IndexViewModel()
             {
                 Categories = categoryManager.ListAll(),
-                Products = productManager.ListAll().Where(x=>x.State==true).OrderByDescending(x=>x.CreatedDate).Take(8)
+                Products = productManager.ListAll().Where(x=>x.State==true).OrderByDescending(x=>x.CreatedDate).Take(8),
+                ProductImages=productImageManager.ListAll()
             };
             return View(model);
         }

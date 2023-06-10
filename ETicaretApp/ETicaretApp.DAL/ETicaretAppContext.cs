@@ -18,6 +18,7 @@ namespace ETicaretApp.DAL
         public DbSet<ProductImage> ProductImages { get; set; }
 
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Member> Members { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -50,6 +50,7 @@ namespace ETicaretApp.Panel.UI.Models
 
         [DisplayName("Kategori")]
         public int CategoryId { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
     }
 }
