@@ -27,14 +27,19 @@ namespace ETicaretApp.BLL
             _memberDal.Delete(member);
         }
 
+        public Member GetByGuid(Guid id)
+        {
+            return _memberDal.GetByGuid(id);
+        }
+
         public Member GetById(int id)
         {
-          return _memberDal.GetById(id);
+            return _memberDal.GetById(id);
         }
 
         public List<Member> ListAll()
         {
-           return _memberDal.ListAll();
+            return _memberDal.ListAll();
         }
 
         public IQueryable<Member> Query()

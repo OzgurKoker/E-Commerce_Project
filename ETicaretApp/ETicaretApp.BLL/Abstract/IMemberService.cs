@@ -13,6 +13,7 @@ namespace ETicaretApp.BLL.Abstract
         void Update(Member member);
         void Delete(Member member);
         Member GetById(int id);
+        Member GetByGuid(Guid id);
         List<Member> ListAll();
         IQueryable<Member> Query();
     }

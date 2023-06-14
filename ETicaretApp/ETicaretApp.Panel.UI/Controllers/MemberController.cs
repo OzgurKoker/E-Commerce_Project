@@ -26,9 +26,9 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
 
         //[HttpPost]
-        //public IActionResult UpdateMemberState(string id)
+        //public IActionResult UpdateMemberState(Guid memberId)
         //{
-        //    var member = memberManager.GetById(id);
+        //    var member = memberManager.GetByGuid(memberId);
         //    member.State = !member.State;
         //    memberManager.Update(member);
         //    notificationService.Notification(NotifyType.Success, $"{member.Email} Mail adresli kullanıcı güncellendi.");

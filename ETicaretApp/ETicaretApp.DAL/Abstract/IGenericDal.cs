@@ -13,7 +13,7 @@ namespace ETicaretApp.DAL.Abstract
         void Update (TEntity entity);
         void Delete (TEntity entity);
         TEntity GetById (int id);
-
+ 
         IQueryable<TEntity> Query();
     }
 }
