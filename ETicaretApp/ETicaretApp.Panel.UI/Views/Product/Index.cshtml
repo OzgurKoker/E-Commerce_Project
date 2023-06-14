@@ -51,7 +51,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover text-nowrap">
+                        <table id="myTable" class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
                                     <th>Kategori</th>
@@ -163,6 +163,32 @@
 @section Scripts {
     <!-- Bootstrap Switch -->
     <script src="~/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
+    <script>
+        let table = new DataTable('#myTable', {
+            "language": {
+                "lengthMenu": "Tek sayfada _MENU_ ürün göster",
+                "zeroRecords": "Hiçbir kayıt bulunamadı.",
+                "info": "_PAGES_ sayfadan _PAGE_. gösteriliyor ",
+                "infoEmpty": "Hiçbir kayıt bulunamadı.",
+                "infoFiltered": "( _MAX_ Üründen)"
+            }
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
