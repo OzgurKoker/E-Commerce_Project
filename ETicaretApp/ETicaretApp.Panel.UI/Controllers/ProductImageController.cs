@@ -132,5 +132,38 @@ namespace ETicaretApp.Panel.UI.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult UpdateShowcaseStatus(int id, bool showcaseStatus, int selectedId)
+        {
+            
+
+                if (showcaseStatus)
+                {
+
+                    if (productImageManager.Query().Any(x => x.ProductId == id && x.IsShowcaseImage == true)
+)
+                    {
+                        notificationService.Notification(NotifyType.Error, "Bu ürüne daha önce vitrin fotoğrafı atanmış.Öncekini kaldır.");
+                        return BadRequest();
+                    }
+                }
+                else
+                {
+                var satir = productImageManager.GetById(selectedId);
+                productImageManager.Update(new ProductImage
+                    {
+                        Id = satir.Id,
+                        Image = satir.Image,
+                        ProductId = satir.ProductId,
+                        IsShowcaseImage = false
+                    });
+                }
+            
+
+
+
+            return View();
+        }
+
     }
 }

@@ -20,8 +20,8 @@ namespace ETicaretApp.UI.Controllers
             var model = new IndexViewModel()
             {
                 Categories = categoryManager.ListAll(),
-                Products = productManager.ListAll().Where(x=>x.State==true).OrderByDescending(x=>x.CreatedDate).Take(8),
-                ProductImages=productImageManager.ListAll()
+                Products = productManager.Query().Include(x => x.Brand).Where(x => x.State == true).OrderByDescending(x => x.CreatedDate).Take(8),
+                ProductImages =productImageManager.ListAll()
             };
             return View(model);
         }

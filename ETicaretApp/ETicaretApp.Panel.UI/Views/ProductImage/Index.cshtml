@@ -85,14 +85,19 @@
                                         </td>
                                         <td>@item.Product.Name</td>
                                         <td>
-                                            @if (item.IsShowcaseImage)
-                                            {
-                                                <span class="badge badge-success "  style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateIsShowcaseImage(@item.Product.Id)">Evet</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge badge-danger "  style="cursor:pointer;" title="Durumu değiştirmek için tıklayınız" onclick="updateIsShowcaseImage(@item.Product.Id)">Hayır</span>
-                                            }
+                                            <div class="form-group">
+
+
+
+                                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+
+                                                    <input @(item.IsShowcaseImage ? "checked" : "") type="checkbox" class="custom-control-input" id="customSwitch3-@item.Id" data-bootstrap-switch onchange="updateShowcaseStatus(@item.ProductId, this.checked,@item.Id)">
+                                                    <br />
+                                                    <label class="custom-control-label" for="customSwitch3-@item.Id"> djfksfnj</label>
+
+                                                </div>
+
+                                            </div>
                                         </td>
 
 
@@ -127,3 +132,24 @@
 
 <vc:modal modal-id="modalProductImageDelete" header-text="Ürün Fotoğrafı Sil" form-id="formProductImageDelete" button-text="Sil" button-onclick="" button-class="danger" button-type="submit" detail-div-id="divDeleteModalDetail"></vc:modal>
 
+<script>
+    function updateShowcaseStatus(itemId, isChecked, selectedId) {
+        $.ajax({
+            
+            type: 'POST',
+            url: '/ProductImage/UpdateShowcaseStatus',
+            data: { id: itemId, showcaseStatus: isChecked, selectedId:selectedId },
+            success: function (response) {
+                location.reload(true);
+                toastr.success(result);
+                
+            },
+            error: function (error) {
+                location.reload(true);
+                toastr.error(result);
+                
+
+            }
+        });
+    }
+</script>
