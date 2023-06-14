@@ -34,23 +34,27 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a class="btn btn-primary btn-sm" onclick="openCreateModal('ProductImage')">Yeni Ürün Fotoğrafı Oluştur</a>
+                        <div style="display: inline-flex; justify-content: flex-start;">
+                            <a class="btn btn-primary btn-sm" onclick="openCreateModal('ProductImage')">Yeni Ürün Fotoğrafı Oluştur</a>
+                        </div>
 
-                        <div style="width:200px;">
-                            <form asp-action="Index">
+                        <div style="display: flex; justify-content: flex-end; margin-top: 10px;margin-left: auto">
+                            <form asp-action="Index" style="display: flex;">
                                 <select class="form-control select2" name="productId" onchange="submitForm()">
                                     <option value="0">Hepsini listele</option>
                                     @foreach (var item in (IEnumerable<SelectListItem>)ViewData["Products"])
                                     {
                                         <option value="@item.Value">@item.Text</option>
-
                                     }
                                 </select>
-                                <button type="submit" class="btn btn-primary">getir</button>
+                                <button type="submit" class="btn btn-primary" style="margin-left: 10px;">getir</button>
                             </form>
                         </div>
 
-                        <div class="card-tools">
+
+
+                      @* search kısmı*@
+                     @*   <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
                                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
@@ -60,7 +64,11 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
+
+                       
+
+                       
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
