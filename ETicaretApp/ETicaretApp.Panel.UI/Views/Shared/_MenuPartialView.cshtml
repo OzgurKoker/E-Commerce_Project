@@ -58,6 +58,16 @@
                 </a>
 
             </li>
+            <li class="nav-item">
+                <a asp-controller="Member" asp-action="Index" class="nav-link @(path.StartsWith("/Member") ? "active" : "")">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Üyeler
+
+                    </p>
+                </a>
+
+            </li>
         }
         @*  <li class="nav-item">
         <a asp-controller="Category" asp-action="Index" class="nav-link @(path.StartsWith("/Category") ? "active" : "")">
