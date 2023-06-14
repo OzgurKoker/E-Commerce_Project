@@ -9,7 +9,13 @@ using System.Threading.Tasks;
 
 namespace ETicaretApp.DAL.EntityFramework
 {
-    public class EfMemberRepository:GenericRepository<Member>,IMemberDal
+    public class EfMemberRepository : GenericRepository<Member>, IMemberDal
     {
+        ETicaretAppContext context = new ETicaretAppContext();
+
+        public Member GetByGuid(Guid id)
+        {
+            return context.Set<Member>().Find(id);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace ETicaretApp.DAL.Abstract
 {
     public interface IMemberDal:IGenericDal<Member>
     {
+        Member GetByGuid(Guid id);
     }
 }
