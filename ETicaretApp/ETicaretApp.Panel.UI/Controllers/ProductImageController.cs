@@ -30,14 +30,14 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             if (productId == 0 || productId == null)
             {
-                productImages = productImageManager.Query().Include(x => x.Product).ToList();
+                productImages = productImageManager.Query().Include(x => x.Product).Where(x => !string.IsNullOrEmpty(x.Image)).ToList();
             }
             else
             {
                 productImages = productImageManager.Query().Include(x => x.Product).Where(x => x.ProductId == productId).ToList();
             }
 
-            ViewData["Products"] = new SelectList(productManager.ListAll(), "Id", "Name");
+            ViewData["Products"] = new SelectList(productManager.ListAll().Where(x => productImages.Any(y => y.ProductId == x.Id)), "Id", "Name");
             return View(productImages);
         }
 
@@ -135,30 +135,41 @@ namespace ETicaretApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult UpdateShowcaseStatus(int id, bool showcaseStatus, int selectedId)
         {
-            
+            var productImage = productImageManager.GetById(selectedId);
 
-                if (showcaseStatus)
-                {
 
-                    if (productImageManager.Query().Any(x => x.ProductId == id && x.IsShowcaseImage == true)
+
+            if (showcaseStatus)
+            {
+
+                if (productImageManager.Query().Any(x => x.ProductId == id && x.IsShowcaseImage == true)
 )
-                    {
-                        notificationService.Notification(NotifyType.Error, "Bu ürüne daha önce vitrin fotoğrafı atanmış.Öncekini kaldır.");
-                        return BadRequest();
-                    }
+                {
+                    notificationService.Notification(NotifyType.Error, "Bu ürüne daha önce vitrin fotoğrafı atanmış.Öncekini kaldır.");
+                    return BadRequest();
                 }
                 else
                 {
-                var satir = productImageManager.GetById(selectedId);
-                productImageManager.Update(new ProductImage
-                    {
-                        Id = satir.Id,
-                        Image = satir.Image,
-                        ProductId = satir.ProductId,
-                        IsShowcaseImage = false
-                    });
+                    productImage.IsShowcaseImage = true;
+                    productImageManager.Update(productImage);
+                    notificationService.Notification(NotifyType.Success, "Vitrin fotoğrafı olarak atandı.");
+                    return Ok();
+
+
                 }
-            
+            }
+            else if (!showcaseStatus)
+            {
+                productImage.IsShowcaseImage = false;
+                productImageManager.Update(productImage);
+                notificationService.Notification(NotifyType.Warning, "Vitrin fotoğrafından çıkartıldı.");
+
+                return Ok();
+
+            }
+
+
+
 
 
 
