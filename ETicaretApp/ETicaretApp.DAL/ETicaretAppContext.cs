@@ -26,6 +26,12 @@ namespace ETicaretApp.DAL
             {
                 optionsBuilder.UseSqlServer("server=localhost\\SQLEXPRESS;database=ETicaretApp;TrustServerCertificate=true;Trusted_Connection=true");
             }
+         
+
+        }
+        public ETicaretAppContext()
+        {
+            Database.Migrate();
         }
     }
 }
