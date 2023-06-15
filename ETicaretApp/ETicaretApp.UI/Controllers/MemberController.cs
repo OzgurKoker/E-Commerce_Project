@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Encrypt.Extensions;
 using System.Security.Claims;
+using SendGrid.Helpers.Mail;
+using SendGrid;
 
 namespace ETicaretApp.UI.Controllers
 {
@@ -35,7 +37,7 @@ namespace ETicaretApp.UI.Controllers
                 string saltedPassword = model.Password + md5Salt;
                 string hashedPassword = saltedPassword.MD5();
                 var user = memberManager.ListAll().FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower() && x.Password.ToLower() == hashedPassword.ToLower());
-          
+
                 if (user != null && user.State)
                 {
                     List<Claim> claims = new List<Claim>
@@ -47,7 +49,7 @@ namespace ETicaretApp.UI.Controllers
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -130,6 +132,52 @@ namespace ETicaretApp.UI.Controllers
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(Login));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            if (ModelState.IsValid)
+            {
+                var member = memberManager.ListAll().Where(x => x.Email == email).FirstOrDefault();
+
+                // SendGrid API anahtarınızı burada belirtin
+                string sendGridApiKey = "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";
+
+                // SendGrid istemcisini oluşturun
+                var client = new SendGridClient(sendGridApiKey);
+
+                // E-posta gövdesini oluşturun
+                var from = new EmailAddress("aysegulkeskin200225@gmail.com", "Deneme");
+                var to = new EmailAddress(email);
+                var subject = "Şifrenizi Sıfırlayın";
+                var plainTextContent = $"Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: https://localhost:7176/Member/RecoverPassword/{member.Id}";
+                var htmlContent = $"<p>Şifrenizi sıfırlamak için <a href=\"https://localhost:7176/Member/RecoverPassword/{member.Id}\">buraya</a> tıklayın.</p>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+                // E-postayı gönderin
+                var response = await client.SendEmailAsync(msg);
+
+                // İşlem sonucunu kontrol edin
+                if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
+                {
+                    return RedirectToAction(nameof(RecoverPassword));
+                    // E-posta başarıyla gönderildi
+                }
+                else
+                {
+                    // E-posta gönderme başarısız oldu
+                    // Hata ile ilgili işlemleri burada yapabilirsiniz
+                    return RedirectToAction(nameof(Login));
+                }
+            }
+            return View();
+
+        }
+
+        public IActionResult RecoverPassword(Guid id)
+        {
+            return View();
         }
     }
 }
