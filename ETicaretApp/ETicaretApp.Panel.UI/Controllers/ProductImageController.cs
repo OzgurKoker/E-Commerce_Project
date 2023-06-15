@@ -3,6 +3,7 @@ using ETicaretApp.DAL.EntityFramework;
 using ETicaretApp.Entities;
 using ETicaretApp.Panel.UI.Models;
 using ETicaretApp.Panel.UI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ETicaretApp.Panel.UI.Controllers
 {
+    [Authorize]
     public class ProductImageController : Controller
     {
         ProductImageManager productImageManager = new ProductImageManager(new EfProductImageRepository());

@@ -17,10 +17,12 @@ namespace ETicaretApp.UI.Controllers
     {
         MemberManager memberManager = new MemberManager(new EfMemberRepository());
         private readonly IConfiguration configuration;
+  
 
         public MemberController(IConfiguration configuration)
         {
             this.configuration = configuration;
+    
         }
 
         public IActionResult Login()
@@ -135,44 +137,61 @@ namespace ETicaretApp.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(string email)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var member = memberManager.ListAll().Where(x => x.Email == email).FirstOrDefault();
-
-                // SendGrid API anahtarınızı burada belirtin
-                string sendGridApiKey = "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";
-
-                // SendGrid istemcisini oluşturun
-                var client = new SendGridClient(sendGridApiKey);
-
-                // E-posta gövdesini oluşturun
-                var from = new EmailAddress("aysegulkeskin200225@gmail.com", "Deneme");
-                var to = new EmailAddress(email);
-                var subject = "Şifrenizi Sıfırlayın";
-                var plainTextContent = $"Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: https://localhost:7176/Member/RecoverPassword/{member.Id}";
-                var htmlContent = $"<p>Şifrenizi sıfırlamak için <a href=\"https://localhost:7176/Member/RecoverPassword/{member.Id}\">buraya</a> tıklayın.</p>";
-                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-
-                // E-postayı gönderin
-                var response = await client.SendEmailAsync(msg);
-
-                // İşlem sonucunu kontrol edin
-                if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction(nameof(RecoverPassword));
-                    // E-posta başarıyla gönderildi
+                    var member = memberManager.ListAll().Where(x => x.Email == model.Email).FirstOrDefault();
+
+                    if (member == null)
+                    {
+                        ModelState.AddModelError("", "eposta bulunamadı");
+                        return View(model);
+                    }
+
+
+                    // SendGrid API anahtarınızı burada belirtin
+                    string sendGridApiKey = configuration.GetValue<string>("AppSettings:MailApi");
+
+                    // SendGrid istemcisini oluşturun
+                    var client = new SendGridClient(sendGridApiKey);
+
+                    // E-posta gövdesini oluşturun
+                    var from = new EmailAddress(configuration.GetValue<string>("AppSettings:SenderMail"), "ETicaretApp Şifre Sıfırlama");
+                    var to = new EmailAddress(model.Email);
+                    var subject = "Şifrenizi Sıfırlayın";
+                    var plainTextContent = $"Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın: https://localhost:7176/Member/RecoverPassword/{member.Id}";
+                    var htmlContent = $"<p>Şifrenizi sıfırlamak için <a href=\"https://localhost:7176/Member/RecoverPassword/{member.Id}\">buraya</a> tıklayın.</p>";
+                    var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+                    // E-postayı gönderin
+                    var response = await client.SendEmailAsync(msg);
+
+                    // İşlem sonucunu kontrol edin
+                    if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
+                    {
+                        return RedirectToAction(nameof(RecoverPassword));
+                        // E-posta başarıyla gönderildi
+                    }
+                    else
+                    {
+                        // E-posta gönderme başarısız oldu
+                        // Hata ile ilgili işlemleri burada yapabilirsiniz
+                        return RedirectToAction(nameof(Login));
+                    }
                 }
                 else
-                {
-                    // E-posta gönderme başarısız oldu
-                    // Hata ile ilgili işlemleri burada yapabilirsiniz
-                    return RedirectToAction(nameof(Login));
-                }
-            }
-            return View();
+                    return View(model);
 
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                
+            }
+            return View(model);
         }
 
         public IActionResult RecoverPassword(Guid id)
