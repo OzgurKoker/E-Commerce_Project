@@ -16,7 +16,6 @@ namespace ETicaretApp.DAL
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
-
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Member> Members { get; set; }
 
@@ -33,5 +32,6 @@ namespace ETicaretApp.DAL
         {
             Database.Migrate();
         }
+
     }
 }

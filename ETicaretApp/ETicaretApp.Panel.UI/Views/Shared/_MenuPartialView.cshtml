@@ -13,8 +13,6 @@
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Anasayfa
-
-
                 </p>
             </a>
         </li>
@@ -39,6 +37,42 @@
                     <a asp-action="Index" asp-controller="CategoryProperty" class="nav-link @(path.StartsWith("/CategoryProperty") ? "active" : "")">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Kategori Detayları</p>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        <li class="nav-item">
+            <a asp-controller="Brand" asp-action="Index" class="nav-link @(path.StartsWith("/Brand") ? "active" : "")">
+                <i class="nav-icon fas fa-tag"></i>
+                <p>
+                    Markalar
+
+
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link @(path.StartsWith("/Product") ? "active" : "")">
+                <i class="nav-icon fas fa-barcode"></i>
+                <p>
+                    Ürün İşlemleri
+                    <i class="fas fa-angle-left right"></i>
+
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Product" class="nav-link @(path=="/Product" ? "active" : "")">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Ürünler</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="ProductImage" class="nav-link @(path.StartsWith("/ProductImage") ? "active" : "")">
+                        <i class="far fa-image nav-icon"></i>
+                        <p>Ürün Fotoğrafları</p>
                     </a>
                 </li>
 
@@ -79,41 +113,8 @@
         </a>
 
         </li>*@
-        <li class="nav-item">
-            <a asp-controller="Brand" asp-action="Index" class="nav-link @(path.StartsWith("/Brand") ? "active" : "")">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                    Markalar
 
 
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link @(path.StartsWith("/Product") ? "active" : "")">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                    Ürün İşlemleri
-                    <i class="fas fa-angle-left right"></i>
-
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a asp-action="Index" asp-controller="Product" class="nav-link @(path=="/Product" ? "active" : "")">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ürünler</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-action="Index" asp-controller="ProductImage" class="nav-link @(path.StartsWith("/Product/ProductImage") ? "active" : "")">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ürün Fotoğrafları</p>
-                    </a>
-                </li>
-
-            </ul>
-        </li>
         <li class="nav-item">
             <a asp-controller="Slider" asp-action="Index" class="nav-link @(path.StartsWith("/Slider") ? "active" : "")">
                 <i class="nav-icon fas fa-tachometer-alt"></i>

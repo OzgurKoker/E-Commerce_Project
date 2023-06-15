@@ -10,6 +10,7 @@ using NETCore.Encrypt.Extensions;
 using System.Security.Claims;
 using SendGrid.Helpers.Mail;
 using SendGrid;
+using ETicaretApp.UI.Helpers;
 
 namespace ETicaretApp.UI.Controllers
 {
@@ -17,12 +18,12 @@ namespace ETicaretApp.UI.Controllers
     {
         MemberManager memberManager = new MemberManager(new EfMemberRepository());
         private readonly IConfiguration configuration;
-  
+
 
         public MemberController(IConfiguration configuration)
         {
             this.configuration = configuration;
-    
+
         }
 
         public IActionResult Login()
@@ -35,9 +36,9 @@ namespace ETicaretApp.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                string md5Salt = configuration.GetValue<string>("AppSettings:MD5Salt");
-                string saltedPassword = model.Password + md5Salt;
-                string hashedPassword = saltedPassword.MD5();
+                string hashedPassword;
+                EncryptHelper.EncryptPassword(model.Password, out hashedPassword);
+
                 var user = memberManager.ListAll().FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower() && x.Password.ToLower() == hashedPassword.ToLower());
 
                 if (user != null && user.State)
@@ -96,9 +97,10 @@ namespace ETicaretApp.UI.Controllers
 
                     }
 
-                    string md5Salt = configuration.GetValue<string>("AppSettings:MD5Salt");
-                    string saltedPassword = model.Password + md5Salt;
-                    string hashedPassword = saltedPassword.MD5();
+
+                    string hashedPassword;
+                    EncryptHelper.EncryptPassword(model.Password, out hashedPassword);
+
 
 
                     Member member = new Member()
@@ -189,13 +191,50 @@ namespace ETicaretApp.UI.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                
+
             }
             return View(model);
         }
 
-        public IActionResult RecoverPassword(Guid id)
+
+        public IActionResult RecoverPassword(Guid id, RecoverPasswordViewModel model)
         {
+            try
+
+            {
+                if (ModelState.IsValid)
+                {
+                    var member = memberManager.GetByGuid(id);
+                    if (member == null)
+                    {
+                        return RedirectToAction(nameof(Login));
+                    }
+                    //string md5Salt = configuration.GetValue<string>("AppSettings:MD5Salt");
+                    //string saltedPassword = model.Password + md5Salt;
+                    //string hashedPassword = saltedPassword.MD5();
+                    string hashedPassword;
+                    EncryptHelper.EncryptPassword(model.Password, out hashedPassword);
+
+                    memberManager.Update(new Member
+                    {
+                        Id = member.Id,
+                        Password = hashedPassword,
+                        Email = member.Email,
+                        FullName = member.FullName,
+                        RegisterDate = member.RegisterDate,
+                        State = member.State
+                    });
+                    return RedirectToAction(nameof(Login));
+                }
+                else
+                    return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+
             return View();
         }
     }
