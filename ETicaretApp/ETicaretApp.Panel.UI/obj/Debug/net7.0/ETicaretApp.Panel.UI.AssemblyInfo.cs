@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("a9ee16e9-7ab3-4e31-9c14-b118d0b3bc6d")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ETicaretApp.Panel.UI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
