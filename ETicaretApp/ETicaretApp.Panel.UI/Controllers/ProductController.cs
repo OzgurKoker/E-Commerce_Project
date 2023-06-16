@@ -128,6 +128,9 @@ namespace ETicaretApp.Panel.UI.Controllers
                         var prop = propertyValueManager.ListAll().FirstOrDefault(x => x.ProductId == item.ProductId && x.CategoryPropertyId == item.CtgPropertyId);
                         prop.Value = item.PropertyValue;
                         propertyValueManager.Update(prop);
+
+                        notificationService.Notification(NotifyType.Success, "Başarıyla Güncellendi");
+
                     }
                     else
                     {
@@ -137,6 +140,8 @@ namespace ETicaretApp.Panel.UI.Controllers
                             ProductId = item.ProductId,
                             CategoryPropertyId = item.CtgPropertyId
                         });
+                        notificationService.Notification(NotifyType.Success, "Başarıyla kaydedildi");
+
                     }
                 }
             }
