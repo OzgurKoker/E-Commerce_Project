@@ -94,12 +94,33 @@ namespace ETicaretApp.Panel.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+
         public IActionResult DeleteCategoryPartial(int id)
         {
             Category category = categoryManager.Query().Include(x => x.Products).FirstOrDefault(x => x.Id == id);
             ViewBag.Products = productManager.ListAll().Where(x => x.CategoryId == id);
 
             return PartialView("_DeleteCategoryPartialView", category);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Category category)
+        {
+
+            try
+            {
+                categoryManager.Delete(category);
+                notificationService.Notification(NotifyType.Success, $"{category.Name} Adlı kategori silindi.");
+            }
+            catch (Exception ex)
+            {
+
+                notificationService.Notification(NotifyType.Error, ex.Message);
+            }
+
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
