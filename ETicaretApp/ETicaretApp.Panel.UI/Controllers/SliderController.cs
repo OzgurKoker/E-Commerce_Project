@@ -152,6 +152,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         [HttpPost]
         public IActionResult Edit(Slider slider, IFormFile photo)
         {
+         
             try
             {
                 if (photo != null)
@@ -206,14 +207,24 @@ namespace ETicaretApp.Panel.UI.Controllers
                 }
                 else
                 {
-                    notificationService.Notification(NotifyType.Error, "Fotoğraf Seçimi Zorunludur.");
+                    sliderManager.Update(new Slider()
+                    {
+                        Id = slider.Id,
+                        Image=slider.Image,
+                        MainTittle = slider.MainTittle,
+                        SmallTittle = slider.SmallTittle,
+                        Url = slider.Url
+
+
+                    });
+                    notificationService.Notification(NotifyType.Success, "Başarıyla Güncellendi.");
 
                 }
             }
             catch (Exception ex)
             {
 
-                notificationService.Notification(NotifyType.Error, ex.Message);
+                notificationService.Notification(NotifyType.Error,"Alanları Boş Bırakmayınız");
 
             }
 
