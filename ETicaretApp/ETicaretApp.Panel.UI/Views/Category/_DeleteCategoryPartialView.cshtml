@@ -1,0 +1,38 @@
+﻿@model Category
+
+<form asp-action="Delete" id="formUserDelete">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <dl class="row">
+            <h5 class=""><strong>Kategori Adı: </strong>@Model.Name </h5>
+
+
+        </dl>
+        @if (Model.Products.Count > 0)
+        {
+            @foreach (var item in (IEnumerable<Product>)ViewBag.Products)
+            {
+               
+                    <hr />
+                    <div class="user-block" style="width: 80px !important; height: 80px !important;">
+                        <img class="img-md" src="~/img/Product/" alt="Slayt Image" style="width: 80px !important; height: 80px !important;">
+                    </div>
+                    <h6 class=""><strong>Ürün Adı: </strong>@item.Name </h6>
+                    <h6 class=""><strong>Açıklama: </strong>@item.Description</h6>
+                    <h6><strong>Fiyat: </strong>@item.Price ₺ </h6>
+
+                
+
+            }
+        }
+        else
+        {
+            <h5 class="">Bu Kategoriye Ait Ürün Yok Yinede Silmek İstiyor Musunuz ?</h5>
+        }
+
+        @if (Model.Products.Count > 0)
+        {
+            <h5 class="alert alert-secondary"><strong>@Model.Name</strong> isimli kategoriyi içindeki <strong>@Model.Products.Count()</strong> Ürünle Birlikte Silmek İstiyor Musunuz ?</h5>
+        }
+    </div>
+</form>
