@@ -1,4 +1,6 @@
-﻿using ETicaretApp.Panel.UI.Models;
+﻿using ETicaretApp.BLL;
+using ETicaretApp.DAL.EntityFramework;
+using ETicaretApp.Panel.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,27 +10,21 @@ namespace ETicaretApp.Panel.UI.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+        ProductManager productManager = new ProductManager(new EfProductRepository());
+        BrandManager brandManager=new BrandManager(new EfBrandRepository());
+        MemberManager memberManager=new MemberManager(new EfMemberRepository());
         public IActionResult Index()
         {
-            return View();
+
+            var model = new DashboardViewModel() {
+
+                Products = productManager.ListAll(),
+                Brands = brandManager.ListAll(),
+                Members=memberManager.ListAll(),
+            };
+            return View(model);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+      
     }
 }

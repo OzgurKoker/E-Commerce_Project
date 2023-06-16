@@ -10,8 +10,9 @@
 
         <li class="nav-item">
             <a asp-controller="Home" asp-action="Index" class="nav-link @(path=="/" ? "active" : "")">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-home"></i>
                 <p>
+                    
                     Anasayfa
                 </p>
             </a>
@@ -19,7 +20,8 @@
 
         <li class="nav-item">
             <a href="#" class="nav-link @(path.StartsWith("/Category") ? "active" : "")">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-bars"></i>
+                
                 <p>
                     Kategori İşlemleri
                     <i class="fas fa-angle-left right"></i>
@@ -45,7 +47,7 @@
 
         <li class="nav-item">
             <a asp-controller="Brand" asp-action="Index" class="nav-link @(path.StartsWith("/Brand") ? "active" : "")">
-                <i class="nav-icon fas fa-tag"></i>
+                <i class="nav-icon fas fa-store"></i>
                 <p>
                     Markalar
 
@@ -55,7 +57,8 @@
         </li>
         <li class="nav-item">
             <a href="#" class="nav-link @(path.StartsWith("/Product") ? "active" : "")">
-                <i class="nav-icon fas fa-barcode"></i>
+                <i class="nav-icon fas fa-wrench"></i>
+               
                 <p>
                     Ürün İşlemleri
                     <i class="fas fa-angle-left right"></i>
@@ -65,7 +68,7 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a asp-action="Index" asp-controller="Product" class="nav-link @(path=="/Product" ? "active" : "")">
-                        <i class="far fa-circle nav-icon"></i>
+                        <i class="fas fa-tag nav-icon"></i>
                         <p>Ürünler</p>
                     </a>
                 </li>
@@ -94,7 +97,7 @@
             </li>
             <li class="nav-item">
                 <a asp-controller="Member" asp-action="Index" class="nav-link @(path.StartsWith("/Member") ? "active" : "")">
-                    <i class="nav-icon fas fa-users"></i>
+                    <i class="nav-icon fas fa-user-secret"></i>
                     <p>
                         Üyeler
 
@@ -117,7 +120,7 @@
 
         <li class="nav-item">
             <a asp-controller="Slider" asp-action="Index" class="nav-link @(path.StartsWith("/Slider") ? "active" : "")">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-window-restore"></i>
                 <p>
                     Slaytlar
 
