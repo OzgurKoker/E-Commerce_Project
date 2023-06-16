@@ -276,7 +276,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
         public IActionResult DeleteProductPartial(int id)
         {
-            Product product = productManager.GetById(id);
+            Product product = productManager.Query().Include(x => x.Category).Include(x=>x.Brand).Include(x=>x.ProductImages).FirstOrDefault(x => x.Id == id);
 
 
             return PartialView("_DeleteProductPartialView", product);
@@ -290,7 +290,7 @@ namespace ETicaretApp.Panel.UI.Controllers
             try
             {
                 productManager.Delete(product);
-                notificationService.Notification(NotifyType.Success, $"{product.Name} isimli marka silindi.");
+                notificationService.Notification(NotifyType.Success, $"{product.Name} isimli ürün silindi.");
             }
             catch (Exception ex)
             {
@@ -349,7 +349,7 @@ namespace ETicaretApp.Panel.UI.Controllers
                         State = editProductViewModel.State,
                         CreatedDate = editProductViewModel.CreatedDate
                     });
-                    notificationService.Notification(NotifyType.Success, $"{editProductViewModel.Name}İsimli Ürün Başarılı Bir Şekilde Oluşturuldu");
+                    notificationService.Notification(NotifyType.Success, $"{editProductViewModel.Name}İsimli Ürün Başarılı Bir Şekilde Güncellendi.");
                 }
                 catch (Exception ex)
                 {
