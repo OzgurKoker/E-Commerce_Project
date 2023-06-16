@@ -15,7 +15,7 @@ namespace ETicaretApp.Panel.UI.Controllers
         SliderManager sliderManager = new SliderManager(new EfSliderRepository());
         private readonly INotificationService notificationService;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public SliderController(INotificationService notificationService,IWebHostEnvironment webHostEnvironment)
+        public SliderController(INotificationService notificationService, IWebHostEnvironment webHostEnvironment)
         {
             this.webHostEnvironment = webHostEnvironment;
             this.notificationService = notificationService;
@@ -34,72 +34,82 @@ namespace ETicaretApp.Panel.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(SliderViewModel slider,IFormFile photo)
+        public IActionResult Create(SliderViewModel slider, IFormFile photo)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (photo != null)
+                try
                 {
-                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
-                    string fileExtension = Path.GetExtension(photo.FileName).ToLower();
 
-                    if (allowedExtensions.Contains(fileExtension))
+
+
+                    if (photo != null)
                     {
-                        int fileSizeLimit = 10 * 1024 * 1024;
+                        string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+                        string fileExtension = Path.GetExtension(photo.FileName).ToLower();
 
-                        if (photo.Length <= fileSizeLimit)
+                        if (allowedExtensions.Contains(fileExtension))
                         {
-                            string wwwrootPath = webHostEnvironment.WebRootPath;
-                            string fileName = Path.GetFileNameWithoutExtension(photo.FileName);
-                            string extension = Path.GetExtension(photo.FileName);
+                            int fileSizeLimit = 10 * 1024 * 1024;
 
-                            string newFileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                            string path = Path.Combine(wwwrootPath + "/img/Slider/", newFileName);
-
-                            using (var fileStream = new FileStream(path, FileMode.Create))
+                            if (photo.Length <= fileSizeLimit)
                             {
-                                photo.CopyTo(fileStream);
+                                string wwwrootPath = webHostEnvironment.WebRootPath;
+                                string fileName = Path.GetFileNameWithoutExtension(photo.FileName);
+                                string extension = Path.GetExtension(photo.FileName);
+
+                                string newFileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                                string path = Path.Combine(wwwrootPath + "/img/Slider/", newFileName);
+
+                                using (var fileStream = new FileStream(path, FileMode.Create))
+                                {
+                                    photo.CopyTo(fileStream);
+                                }
+
+                                sliderManager.Create(new Slider()
+                                {
+                                    Image = newFileName,
+                                    MainTittle = slider.MainTittle,
+                                    SmallTittle = slider.SmallTittle,
+                                    Url = slider.Url
+
+
+                                });
+                                notificationService.Notification(NotifyType.Success, "Başarıyla fotoğraf eklendi.");
+
+                                return RedirectToAction(nameof(Index));
                             }
-
-                            sliderManager.Create(new Slider()
+                            else
                             {
-                                Image = newFileName,
-                                MainTittle=slider.MainTittle,
-                                SmallTittle=slider.SmallTittle,
-                                Url=slider.Url
-
-
-                            }) ;
-                            notificationService.Notification(NotifyType.Success, "Başarıyla fotoğraf eklendi.");
-
-                            return RedirectToAction(nameof(Index));
+                                notificationService.Notification(NotifyType.Error, "Dosya boyutu limiti aşıldı (10mb)");
+                                return RedirectToAction(nameof(Index));
+                            }
                         }
                         else
                         {
-                            notificationService.Notification(NotifyType.Error, "Dosya boyutu limiti aşıldı (10mb)");
+                            notificationService.Notification(NotifyType.Error, "Geçersiz Dosya Formatı (jpg,jpeg,png) Seçiniz.");
                             return RedirectToAction(nameof(Index));
+
                         }
                     }
                     else
                     {
-                        notificationService.Notification(NotifyType.Error, "Geçersiz Dosya Formatı (jpg,jpeg,png) Seçiniz.");
-                        return RedirectToAction(nameof(Index));
+                        notificationService.Notification(NotifyType.Error, "Fotoğraf Seçimi Zorunludur.");
 
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    notificationService.Notification(NotifyType.Error, "Fotoğraf Seçimi Zorunludur.");
+
+                    notificationService.Notification(NotifyType.Error, ex.Message);
 
                 }
             }
-            catch (Exception ex)
+            else
             {
-
-                notificationService.Notification(NotifyType.Error, ex.Message);
+                ModelStateControl.KontrolEt(notificationService, ModelState);
 
             }
-
 
             return RedirectToAction(nameof(Index));
 
@@ -169,7 +179,7 @@ namespace ETicaretApp.Panel.UI.Controllers
 
                             sliderManager.Update(new Slider()
                             {
-                                Id=slider.Id,
+                                Id = slider.Id,
                                 Image = newFileName,
                                 MainTittle = slider.MainTittle,
                                 SmallTittle = slider.SmallTittle,
