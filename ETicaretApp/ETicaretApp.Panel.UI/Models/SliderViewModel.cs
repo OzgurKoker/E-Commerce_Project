@@ -6,9 +6,6 @@ namespace ETicaretApp.Panel.UI.Models
 {
     public class SliderViewModel:EntityBase
     {
-        [DisplayName("Fotoğraf")]
-        [Required(ErrorMessage = "Fotoğraf alanı boş geçilemez")]
-        public string Image { get; set; }
 
 
         [DisplayName("Küçük Başlık")]
