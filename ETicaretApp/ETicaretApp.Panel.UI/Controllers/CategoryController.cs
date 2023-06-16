@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETicaretApp.Panel.UI.Controllers
 {
@@ -14,6 +15,8 @@ namespace ETicaretApp.Panel.UI.Controllers
     public class CategoryController : Controller
     {
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
+        ProductManager productManager = new ProductManager(new EfProductRepository());
+        ProductImageManager productImageManager = new ProductImageManager(new EfProductImageRepository());
         private readonly INotificationService notificationService;
         public CategoryController(INotificationService notificationService)
         {
@@ -90,6 +93,13 @@ namespace ETicaretApp.Panel.UI.Controllers
 
 
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult DeleteCategoryPartial(int id)
+        {
+            Category category = categoryManager.Query().Include(x => x.Products).FirstOrDefault(x => x.Id == id);
+            ViewBag.Products = productManager.ListAll().Where(x => x.CategoryId == id);
+
+            return PartialView("_DeleteCategoryPartialView", category);
         }
     }
 }
