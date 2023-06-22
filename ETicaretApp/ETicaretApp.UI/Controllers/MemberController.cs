@@ -11,6 +11,7 @@ using System.Security.Claims;
 using SendGrid.Helpers.Mail;
 using SendGrid;
 using ETicaretApp.UI.Helpers;
+using ETicaretApp.UI.Services;
 
 namespace ETicaretApp.UI.Controllers
 {
@@ -18,11 +19,13 @@ namespace ETicaretApp.UI.Controllers
     {
         MemberManager memberManager = new MemberManager(new EfMemberRepository());
         private readonly IConfiguration configuration;
+        private readonly INotificationService notificationService;
 
 
-        public MemberController(IConfiguration configuration)
+        public MemberController(IConfiguration configuration, INotificationService notificationService)
         {
             this.configuration = configuration;
+            this.notificationService = notificationService;
 
         }
 
@@ -111,6 +114,9 @@ namespace ETicaretApp.UI.Controllers
                         State = true
                     };
                     memberManager.Create(member);
+                    notificationService.Notification(NotifyType.Success, "Başarıyla kayıt oldunuz Giriş yapabilirsiniz.");
+              
+
                 }
                 else
                 {
@@ -123,8 +129,8 @@ namespace ETicaretApp.UI.Controllers
 
                 ModelState.AddModelError("", ex.Message);
             }
-
-            return RedirectToAction(nameof(Login));
+     
+            return RedirectToAction(nameof(Register));
         }
 
         public IActionResult ForgotPassword()
@@ -174,6 +180,7 @@ namespace ETicaretApp.UI.Controllers
                     // İşlem sonucunu kontrol edin
                     if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
                     {
+
                         return RedirectToAction(nameof(RecoverPassword));
                         // E-posta başarıyla gönderildi
                     }
@@ -224,6 +231,7 @@ namespace ETicaretApp.UI.Controllers
                         RegisterDate = member.RegisterDate,
                         State = member.State
                     });
+
                     return RedirectToAction(nameof(Login));
                 }
                 else
