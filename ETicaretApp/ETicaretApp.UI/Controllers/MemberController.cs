@@ -115,7 +115,7 @@ namespace ETicaretApp.UI.Controllers
                     };
                     memberManager.Create(member);
                     notificationService.Notification(NotifyType.Success, "Başarıyla kayıt oldunuz Giriş yapabilirsiniz.");
-              
+
 
                 }
                 else
@@ -129,7 +129,7 @@ namespace ETicaretApp.UI.Controllers
 
                 ModelState.AddModelError("", ex.Message);
             }
-     
+
             return RedirectToAction(nameof(Register));
         }
 
@@ -141,7 +141,7 @@ namespace ETicaretApp.UI.Controllers
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
