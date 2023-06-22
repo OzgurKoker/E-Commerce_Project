@@ -123,11 +123,22 @@
                         </div>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <div class="navbar-nav ml-auto py-0">
-                                <a href="" class="nav-item nav-link btn btn-secondary">@User.FindFirst(ClaimTypes.Email).Value</a>
-                                <a asp-action="Logout" asp-controller="Member" class="nav-item nav-link btn btn-secondary">Çıkış Yap</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">@User.FindFirst(ClaimTypes.Email).Value</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="cart.html" class="dropdown-item">Adreslerim</a>
+                                    <a asp-action="Logout" asp-controller="Member" class="dropdown-item">Çıkış Yap</a>
 
+                                </div>
                             </div>
+
+
+
+                            @*     <div class="navbar-nav ml-auto py-0">
+                        <a href="" class="nav-item nav-link btn btn-secondary">@User.FindFirst(ClaimTypes.Email).Value</a>
+                        <a asp-action="Logout" asp-controller="Member" class="nav-item nav-link btn btn-secondary">Çıkış Yap</a>
+
+                        </div>*@
                         }
                         else
                         {
@@ -211,7 +222,7 @@
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-dark">
                     &copy; <a class="text-dark font-weight-semi-bold" href="#">E-Ticaret APP</a>. Tüm hakları saklıdır.
-                   
+
                 </p>
             </div>
             <div class="col-md-6 px-xl-0 text-center text-md-right">
