@@ -111,6 +111,15 @@ namespace ETicaretApp.Panel.UI.Controllers
             try
             {
                 categoryManager.Delete(category);
+                IEnumerable<Category> categoryList = categoryManager.ListAll().Where(x => x.CategoryId == category.Id);
+                if (categoryList != null)
+                {
+                    foreach (var item in categoryList)
+                    {
+                        categoryManager.Delete(item);
+
+                    }
+                }
                 notificationService.Notification(NotifyType.Success, $"{category.Name} Adlı kategori silindi.");
             }
             catch (Exception ex)

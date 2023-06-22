@@ -1,3 +1,4 @@
+using ETicaretApp.UI.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
 
@@ -5,12 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opts =>
     {
         opts.Cookie.Name = "member.auth";
-        opts.ExpireTimeSpan=TimeSpan.FromDays(7);
+        opts.ExpireTimeSpan = TimeSpan.FromDays(7);
         opts.SlidingExpiration = false;
         opts.LoginPath = "/Member/Login";
         opts.LogoutPath = "/Member/Logout";
