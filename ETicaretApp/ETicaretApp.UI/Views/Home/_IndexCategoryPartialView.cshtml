@@ -1,37 +1,35 @@
 ﻿@model IndexViewModel
 
 <!-- Categories Start -->
-<div class="container-fluid pt-5">
-    <div class="row px-xl-5 pb-3">
-        @foreach (var item in Model.Categories.OrderByDescending(p => p.Id).Take(6).Where(x => x.CategoryId != null))
-        {
-            @*var productCount = Model.Products.Where(x => x.CategoryId == item.Id && x.State);
-        var latestProductImage = Model.ProductImages.Where(pi => pi.ProductId == productCount.OrderByDescending(p => p.Id).FirstOrDefault()?.Id).FirstOrDefault();
-        string imageUrl = latestProductImage != null ? latestProductImage.Image : "empty.png";
+@if (Model.Categories.Count() > 0)
+{
 
-        *@
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            @foreach (var item in Model.Categories.OrderByDescending(p => p.Id).Take(6).Where(x => x.CategoryId != null))
+            {
+                var latestCategoryImage = Model.ProductImages.Where(pi => Model.Products.Any(p => p.CategoryId == item.Id && p.Id == pi.ProductId))
+                .OrderByDescending(pi => pi.Id)
+                .FirstOrDefault();
+                string imageUrl = latestCategoryImage != null ? latestCategoryImage.Image : "empty.png";
 
-            var latestCategoryImage = Model.ProductImages.Where(pi => Model.Products.Any(p => p.CategoryId == item.Id && p.Id == pi.ProductId))
-            .OrderByDescending(pi => pi.Id)
-            .FirstOrDefault();
-            string imageUrl = latestCategoryImage != null ? latestCategoryImage.Image : "empty.png";
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                        <p class="text-right">@Model.Products.Count(p => p.CategoryId == item.Id && p.State) Ürün</p>
 
-
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">@Model.Products.Count(p => p.CategoryId == item.Id && p.State) Ürün</p>
-
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="@Configuration["wwwroot"]Product/@imageUrl" alt="">
-                    </a>
+                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" src="@Configuration["wwwroot"]Product/@imageUrl" alt="">
+                        </a>
 
 
-                    <h5 class="font-weight-semi-bold m-0">@item.Name</h5>
+                        <h5 class="font-weight-semi-bold m-0">@item.Name</h5>
+                    </div>
                 </div>
-            </div>
 
 
-        }
+            }
+        </div>
     </div>
-</div>
+}
+
 <!-- Categories End -->
