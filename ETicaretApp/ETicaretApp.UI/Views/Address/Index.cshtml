@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "_MemberSettingsLayout";
+    ViewData["title"] = "Adreslerim";
+}
+<div class="container">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Adres Listesi</h1>
+                    </div>
+                 
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="btn btn-primary btn-sm" onclick="openCreateModal('Address')">Yeni Adres Oluştur</a>
+
+
+                       
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Adres Adı</th>
+
+                                        <th width="80px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>item.Name</td>
+
+                                        <td>
+                                            <a onclick="openDeleteModal('Address', item.Id)" class="btn btn-danger btn-sm" title="Kaydı Sil"><i class="fa fa-trash"></i></a>
+                                            <a onclick="openEditModal('Address', item.Id)" class="btn btn-warning btn-sm" title="Kaydı Güncelle"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+
+                <!-- /.card-body -->
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
+<vc:modal modal-id="modalAddressCreate" header-text="Adres Oluştur" form-id="formAddressCreate" button-text="Kaydet" button-onclick="" button-class="primary" button-type="submit" detail-div-id="divCreateModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalAddressEdit" header-text="Adres Güncelle" form-id="formAddressEdit" button-text="Kaydet" button-onclick="" button-class="primary" button-type="submit" detail-div-id="divEditModalDetail"></vc:modal>
+
+<vc:modal modal-id="modalAddressDelete" header-text="Adres Sil" form-id="formAddressDelete" button-text="Sil" button-onclick="" button-class="danger" button-type="submit" detail-div-id="divDeleteModalDetail"></vc:modal>
+
