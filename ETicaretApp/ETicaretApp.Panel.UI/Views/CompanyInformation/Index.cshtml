@@ -1,5 +1,160 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Şirket Bilgileri</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">Şirket Bilgileri</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Şirket Bilgileri Düzenle</h3>
+
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Firma İsminizi Giriniz:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-building"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Kısa Bilgi Giriniz:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-info"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Adres Bilgisi Giriniz:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Şirket Mail Adresinizi Giriniz:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-mail-bulk"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Şirket Telefon Numaranızı Giriniz:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Facebook Linki Giriniz:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fab fa-facebook-f"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Twitter Linki Giriniz:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fab fa-twitter"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Lİnkedin Linki Giriniz:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fab fa-linkedin-in"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Instagram Linki Giriniz:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fab fa-instagram"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Youtube Linki Giriniz:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fab fa-youtube"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12" style="text-align: right;">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-block bg-gradient-primary">Bilgileri Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
