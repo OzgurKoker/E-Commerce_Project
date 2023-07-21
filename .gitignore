@@ -437,3 +437,5 @@ MigrationBackup/
 /ETicaretApp/ETicaretApp.UI/obj/Debug/net7.0/project.razor.vs.json
 /ETicaretApp/ETicaretApp.Entities/obj/Debug/net7.0/ETicaretApp.Entities.csproj.AssemblyReference.cache
 /ETicaretApp/ETicaretApp.UI/obj/Debug/net7.0/ETicaretApp.UI.csproj.AssemblyReference.cache
+/ETicaretApp/ETicaretApp.UI/obj/Debug/net7.0/ETicaretApp.UI.RazorAssemblyInfo.cs
+/ETicaretApp/ETicaretApp.UI/obj/Debug/net7.0/ETicaretApp.UI.RazorAssemblyInfo.cache
