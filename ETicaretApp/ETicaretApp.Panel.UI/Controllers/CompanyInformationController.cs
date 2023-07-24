@@ -24,51 +24,51 @@ namespace ETicaretApp.Panel.UI.Controllers
             return View(companyInformation);
         }
 
-        [HttpPost]
-        public IActionResult Index(CompanyInformation companyInformation)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    CompanyInformation existingCompany = companyInformationManager.GetById(companyInformation.Id);
-                    if (existingCompany != null)
-                    {
-                        existingCompany.Title = companyInformation.Title;
-                        existingCompany.Comment = companyInformation.Comment;
-                        existingCompany.Address = companyInformation.Address;
-                        existingCompany.Mail = companyInformation.Mail;
-                        existingCompany.PhoneNumber = companyInformation.PhoneNumber;
-                        existingCompany.Facebook = companyInformation.Facebook;
-                        existingCompany.Twitter = companyInformation.Twitter;
-                        existingCompany.Linkedin = companyInformation.Linkedin;
-                        existingCompany.Instagram = companyInformation.Instagram;
-                        existingCompany.Youtube = companyInformation.Youtube;
+        //[HttpPost]
+        //public IActionResult Index(CompanyInformation companyInformation)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            CompanyInformation existingCompany = companyInformationManager.GetById(companyInformation.Id);
+        //            if (existingCompany != null)
+        //            {
+        //                existingCompany.Title = companyInformation.Title;
+        //                existingCompany.Comment = companyInformation.Comment;
+        //                existingCompany.Address = companyInformation.Address;
+        //                existingCompany.Mail = companyInformation.Mail;
+        //                existingCompany.PhoneNumber = companyInformation.PhoneNumber;
+        //                existingCompany.Facebook = companyInformation.Facebook;
+        //                existingCompany.Twitter = companyInformation.Twitter;
+        //                existingCompany.Linkedin = companyInformation.Linkedin;
+        //                existingCompany.Instagram = companyInformation.Instagram;
+        //                existingCompany.Youtube = companyInformation.Youtube;
 
-                        companyInformationManager.Create(existingCompany);
+        //                companyInformationManager.Create(existingCompany);
 
-                        notificationService.Notification(NotifyType.Success, $"{existingCompany.Title} İsimli Şirket Bilgileri Başarılı Bir Şekilde Güncellendi");
-                    }
-                    else
-                    {
+        //                notificationService.Notification(NotifyType.Success, $"{existingCompany.Title} İsimli Şirket Bilgileri Başarılı Bir Şekilde Güncellendi");
+        //            }
+        //            else
+        //            {
 
-                        notificationService.Notification(NotifyType.Error, " İsimli Şirket Bilgileri Başarılı Bir Şekilde Oluşturuldu");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    notificationService.Notification(NotifyType.Error, ex.Message);
-                }
+        //                notificationService.Notification(NotifyType.Error, " İsimli Şirket Bilgileri Başarılı Bir Şekilde Oluşturuldu");
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            notificationService.Notification(NotifyType.Error, ex.Message);
+        //        }
 
-                return RedirectToAction("Index", "CompanyInformation");
-            }
-            else
-            {
-                ModelStateControl.KontrolEt(notificationService, ModelState);
-            }
+        //        return RedirectToAction("Index", "CompanyInformation");
+        //    }
+        //    else
+        //    {
+        //        ModelStateControl.KontrolEt(notificationService, ModelState);
+        //    }
 
-            return View(companyInformation);
-        }
+        //    return View(companyInformation);
+        //}
 
 
     }
